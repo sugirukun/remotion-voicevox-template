@@ -17,13 +17,13 @@ export const SceneVisuals: React.FC<SceneVisualsProps> = ({
 }) => {
   const sceneInfo = scenes.find((s) => s.id === scene) || scenes[0];
 
-  // 中央コンテンツ用のコンテナスタイル
+  // 中央コンテンツ用のコンテナスタイル（黒板内に収まるよう調整）
   const centerContainer: React.CSSProperties = {
     position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 200, // キャラクターと字幕のスペースを確保
+    top: 60,      // 黒板上端 + 余白
+    left: 80,     // 黒板左端 + 余白
+    right: 80,    // 黒板右端 + 余白
+    bottom: 180,  // 黒板下端 + 余白
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

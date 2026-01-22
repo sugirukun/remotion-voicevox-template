@@ -6,18 +6,20 @@ export const VIDEO_CONFIG = {
   playbackRate: 1.2, // 再生速度（音声生成時に考慮）
 };
 
-// カラーパレット
+// カラーパレット（黒板風デザイン）
 export const COLORS = {
-  background: "#f8fafc",
-  text: "#1e293b",
-  textMuted: "#64748b",
+  background: "#ffffff",      // 外側の白背景
+  blackboard: "#2d5a3d",      // 黒板の緑
+  blackboardBorder: "#8B4513", // 黒板の茶色フチ
+  text: "#ffffff",            // 白文字
+  textMuted: "#e0e0e0",
   primary: "#3b82f6",
   success: "#22c55e",
   warning: "#f59e0b",
   error: "#ef4444",
   pink: "#ec4899",
-  zundamon: "#059669", // ずんだもん用（濃い緑）
-  metan: "#db2777", // めたん用（ピンク）
+  zundamon: "#228B22",        // フォレストグリーン（暗め）
+  metan: "#FF1493",           // ディープピンク
 };
 
 // キャラクター定義

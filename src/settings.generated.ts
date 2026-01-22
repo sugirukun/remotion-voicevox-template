@@ -6,7 +6,7 @@ export const SETTINGS = {
   "font": {
     "family": "Noto Sans JP",
     "size": 48,
-    "weight": "bold",
+    "weight": "900",
     "color": "#ffffff",
     "outlineColor": "#000000",
     "innerOutlineColor": "character"
@@ -34,10 +34,10 @@ export const SETTINGS = {
     "playbackRate": 1.2
   },
   "colors": {
-    "background": "#f8fafc",
-    "text": "#1e293b",
-    "zundamon": "#059669",
-    "metan": "#db2777"
+    "background": "#ffffff",
+    "text": "#ffffff",
+    "zundamon": "#228B22",
+    "metan": "#FF1493"
   }
 } as const;
 

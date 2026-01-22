@@ -54,27 +54,37 @@ export const Main: React.FC = () => {
   const getLineDuration = (line: ScriptLine): number =>
     getAdjustedFrames(line.durationInFrames);
 
-  // 背景スタイル
-  const getBackgroundStyle = (): React.CSSProperties => {
-    switch (sceneInfo.background) {
-      case "gradient":
-        return {
-          background: `linear-gradient(135deg, ${COLORS.primary}15 0%, ${COLORS.pink}15 100%)`,
-        };
-      default:
-        return {
-          background: COLORS.background,
-        };
-    }
-  };
-
   return (
     <AbsoluteFill
       style={{
-        ...getBackgroundStyle(),
+        background: COLORS.background,
         fontFamily: "'Noto Sans JP', 'Hiragino Sans', sans-serif",
       }}
     >
+      {/* 黒板背景 */}
+      <div
+        style={{
+          position: "absolute",
+          top: 40,
+          left: 60,
+          right: 60,
+          bottom: 160,
+          background: COLORS.blackboard,
+          borderRadius: 8,
+        }}
+      />
+      {/* 黒板の茶色フチ（下部） */}
+      <div
+        style={{
+          position: "absolute",
+          left: 60,
+          right: 60,
+          bottom: 160,
+          height: 24,
+          background: COLORS.blackboardBorder,
+          borderRadius: "0 0 8px 8px",
+        }}
+      />
       {/* 音声再生 */}
       {scriptData.map((line, index) => {
         const startFrame = getLineStartFrame(index);
