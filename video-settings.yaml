@@ -9,7 +9,7 @@
 font:
   # 字幕のフォント（Googleフォント名またはシステムフォント名）
   # 例: "Noto Sans JP", "M PLUS Rounded 1c", "Kosugi Maru", "Zen Maru Gothic"
-  family: "Noto Sans JP"
+  family: "M PLUS Rounded 1c"
 
   # フォントサイズ（ピクセル）
   size: 48
@@ -25,8 +25,8 @@ font:
   # アウトラインの色
   # "character": キャラクターごとの色（colors.zundamon / colors.metan）を使用
   # または直接色コードを指定
-  outlineColor: "#000000"
-  innerOutlineColor: "character"
+  outlineColor: "#228B22"
+  innerOutlineColor: "none"
 
 # -------------------------------------------
 # 字幕設定
@@ -57,7 +57,7 @@ character:
   # キャラクター画像を使用するか
   # false: プレースホルダー表示
   # true: 画像を使用
-  useImages: false
+  useImages: true
 
   # キャラクター画像のベースパス
   # public/からの相対パス、または絶対パス

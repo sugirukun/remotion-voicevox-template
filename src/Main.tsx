@@ -1,9 +1,13 @@
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, Audio, Sequence, staticFile, Loop } from "remotion";
+import { loadFont } from "@remotion/google-fonts/MPLUSRounded1c";
 import { scriptData, scenes, ScriptLine, bgmConfig } from "./data/script";
 import { COLORS, VIDEO_CONFIG } from "./config";
 import { Subtitle } from "./components/Subtitle";
 import { Character } from "./components/Character";
 import { SceneVisuals } from "./components/SceneVisuals";
+
+// Google Fontsをロード
+const { fontFamily } = loadFont();
 
 // 再生速度を考慮したフレーム数を計算
 const getAdjustedFrames = (frames: number): number =>

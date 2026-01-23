@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "file": "01_zundamon.wav",
+    "duration": 1.4506666666666668,
+    "frames": 53
+  },
+  {
+    "id": 2,
+    "file": "02_metan.wav",
+    "duration": 1.1946666666666668,
+    "frames": 44
+  },
+  {
+    "id": 3,
+    "file": "03_zundamon.wav",
+    "duration": 3.392,
+    "frames": 123
+  },
+  {
+    "id": 4,
+    "file": "04_metan.wav",
+    "duration": 0.8533333333333334,
+    "frames": 31
+  }
+]

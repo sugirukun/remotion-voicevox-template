@@ -76,41 +76,46 @@ export const scenes: SceneInfo[] = [
   { id: 3, title: "エンディング", background: "gradient" },
 ];
 
-// サンプルスクリプトデータ
-// 実際の使用時はセリフを編集してから npm run voices で音声生成
+// デモ用スクリプトデータ
+// このテンプレートをコピーしてすぐに動作確認できます
+// セリフを編集後、npm run voices で音声を再生成してください
 export const scriptData: ScriptLine[] = [
   {
     id: 1,
     character: "zundamon",
-    text: "こんにちは！今日は〇〇を紹介するのだ！",
+    text: "ずんだもんなのだ！",
     scene: 1,
     voiceFile: "01_zundamon.wav",
-    durationInFrames: 100, // 音声生成後に更新
-    pauseAfter: 10,
-    emotion: "happy",
+    durationInFrames: 53, // 1.45s
+    pauseAfter: 15,
   },
   {
     id: 2,
     character: "metan",
-    text: "楽しみね。詳しく教えて？",
+    text: "四国めたんです。",
     scene: 1,
     voiceFile: "02_metan.wav",
-    durationInFrames: 80,
-    pauseAfter: 10,
-    emotion: "normal",
+    durationInFrames: 44, // 1.19s
+    pauseAfter: 15,
   },
-  // 英語を含むセリフの例（VOICEVOXはカタカナで発音、字幕は英語表記）
-  // {
-  //   id: 3,
-  //   character: "zundamon",
-  //   text: "ホームブルーでインストールできるのだ！",
-  //   displayText: "Homebrewでインストールできるのだ！",
-  //   scene: 2,
-  //   voiceFile: "03_zundamon.wav",
-  //   durationInFrames: 100,
-  //   pauseAfter: 10,
-  //   emotion: "normal",
-  // },
+  {
+    id: 3,
+    character: "zundamon",
+    text: "このテンプレートで紹介動画が作れるのだ！",
+    scene: 1,
+    voiceFile: "03_zundamon.wav",
+    durationInFrames: 123, // 3.39s
+    pauseAfter: 10,
+  },
+  {
+    id: 4,
+    character: "metan",
+    text: "よろしくね。",
+    scene: 1,
+    voiceFile: "04_metan.wav",
+    durationInFrames: 31, // 0.85s
+    pauseAfter: 30,
+  },
 ];
 
 // VOICEVOXスクリプト生成用

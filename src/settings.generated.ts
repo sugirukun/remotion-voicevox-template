@@ -4,12 +4,12 @@
 
 export const SETTINGS = {
   "font": {
-    "family": "Noto Sans JP",
+    "family": "M PLUS Rounded 1c",
     "size": 48,
     "weight": "900",
     "color": "#ffffff",
-    "outlineColor": "#000000",
-    "innerOutlineColor": "character"
+    "outlineColor": "#228B22",
+    "innerOutlineColor": "none"
   },
   "subtitle": {
     "bottomOffset": 40,
@@ -20,7 +20,7 @@ export const SETTINGS = {
   },
   "character": {
     "height": 367,
-    "useImages": false,
+    "useImages": true,
     "imagesBasePath": "images"
   },
   "content": {

@@ -8,8 +8,9 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "yaml";
 
-const YAML_PATH = path.join(__dirname, "..", "video-settings.yaml");
-const OUTPUT_PATH = path.join(__dirname, "..", "src", "settings.generated.ts");
+const ROOT_DIR = process.cwd();
+const YAML_PATH = path.join(ROOT_DIR, "video-settings.yaml");
+const OUTPUT_PATH = path.join(ROOT_DIR, "src", "settings.generated.ts");
 
 interface VideoSettings {
   font: {

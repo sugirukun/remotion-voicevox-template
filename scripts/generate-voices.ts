@@ -14,10 +14,12 @@ import * as fs from "fs";
 import * as path from "path";
 import { execSync } from "child_process";
 
+const ROOT_DIR = process.cwd();
+
 // 設定読み込み
-const CONFIG_PATH = path.join(__dirname, "../src/config.ts");
-const SCRIPT_PATH = path.join(__dirname, "../src/data/script.ts");
-const OUTPUT_DIR = path.join(__dirname, "../public/voices");
+const CONFIG_PATH = path.join(ROOT_DIR, "src/config.ts");
+const SCRIPT_PATH = path.join(ROOT_DIR, "src/data/script.ts");
+const OUTPUT_DIR = path.join(ROOT_DIR, "public/voices");
 
 interface VoiceGenerationConfig {
   host: string;

@@ -13,11 +13,11 @@ interface SubtitleProps {
 }
 
 // BudouXで分割したテキストをレンダリングするコンポーネント
-const BudouXText = ({ text, style }: { text: string; style: React.CSSProperties }) => {
+const BudouXText = ({ text }: { text: string }) => {
   const segments = useMemo(() => parser.parse(text), [text]);
 
   return (
-    <span style={style}>
+    <>
       {segments.map((segment, index) => (
         <span
           key={index}
@@ -29,7 +29,7 @@ const BudouXText = ({ text, style }: { text: string; style: React.CSSProperties 
           {segment}
         </span>
       ))}
-    </span>
+    </>
   );
 };
 
@@ -57,14 +57,13 @@ export const Subtitle: React.FC<SubtitleProps> = ({ text, character }) => {
   };
 
   const textColor = getColor(font.color);
-  const outerOutlineColor = getColor(font.outlineColor);
-  const innerOutlineColorValue = getColor(font.innerOutlineColor);
+  const outlineColor = getColor(font.outlineColor);
 
-  const baseTextStyle: React.CSSProperties = {
+  const baseStyle: React.CSSProperties = {
     fontSize: font.size,
     fontWeight: font.weight as React.CSSProperties["fontWeight"],
     lineHeight: 1.5,
-    fontFamily: `'${font.family}', 'Hiragino Kaku Gothic ProN', sans-serif`,
+    fontFamily: `'${font.family}', 'Hiragino Maru Gothic ProN', sans-serif`,
   };
 
   return (
@@ -80,48 +79,32 @@ export const Subtitle: React.FC<SubtitleProps> = ({ text, character }) => {
         textAlign: "center",
       }}
     >
-      {/* 袋文字（アウトライン付きテキスト） */}
-      <div
-        style={{
-          position: "relative",
-          display: "inline",
-        }}
-      >
-        {/* 外側アウトライン */}
-        <BudouXText
-          text={text}
+      {/* 袋文字: アウトラインと本文を重ねて表示 */}
+      <div style={{ position: "relative", display: "inline-block" }}>
+        {/* アウトライン（後ろ） */}
+        <span
           style={{
-            ...baseTextStyle,
+            ...baseStyle,
             position: "absolute",
             left: 0,
             top: 0,
-            color: "transparent",
-            WebkitTextStroke: `${subtitle.outlineWidth}px ${outerOutlineColor}`,
+            color: outlineColor,
+            WebkitTextStroke: `${subtitle.outlineWidth}px ${outlineColor}`,
             paintOrder: "stroke fill",
           }}
-        />
-        {/* 内側アウトライン（キャラクター色） */}
-        <BudouXText
-          text={text}
+        >
+          <BudouXText text={text} />
+        </span>
+        {/* 本文（前） */}
+        <span
           style={{
-            ...baseTextStyle,
-            position: "absolute",
-            left: 0,
-            top: 0,
-            color: "transparent",
-            WebkitTextStroke: `${subtitle.innerOutlineWidth}px ${innerOutlineColorValue}`,
-            paintOrder: "stroke fill",
-          }}
-        />
-        {/* メインテキスト */}
-        <BudouXText
-          text={text}
-          style={{
-            ...baseTextStyle,
+            ...baseStyle,
             position: "relative",
             color: textColor,
           }}
-        />
+        >
+          <BudouXText text={text} />
+        </span>
       </div>
     </div>
   );
