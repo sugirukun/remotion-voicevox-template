@@ -7,15 +7,16 @@
 ## 目次
 
 1. [クイックスタート](#クイックスタート)
-2. [Claude Codeでの使い方](#claude-codeでの使い方)
-3. [セリフの書き方](#セリフの書き方)
-4. [英語の発音問題](#英語の発音問題)
-5. [キャラクター画像](#キャラクター画像)
-6. [スタイル設定（video-settings.yaml）](#スタイル設定video-settingsyaml)
-7. [手動での使い方](#手動での使い方)
-8. [ファイル構成](#ファイル構成)
-9. [トラブルシューティング](#トラブルシューティング)
-10. [Tips](#tips)
+2. [GUIエディター](#guiエディター)
+3. [Claude Codeでの使い方](#claude-codeでの使い方)
+4. [セリフの書き方](#セリフの書き方)
+5. [英語の発音問題](#英語の発音問題)
+6. [キャラクター画像](#キャラクター画像)
+7. [スタイル設定（video-settings.yaml）](#スタイル設定video-settingsyaml)
+8. [手動での使い方](#手動での使い方)
+9. [ファイル構成](#ファイル構成)
+10. [トラブルシューティング](#トラブルシューティング)
+11. [Tips](#tips)
 
 ---
 
@@ -35,6 +36,63 @@ npm start
 
 # 4. Claude Codeで開く（別ターミナル）
 claude
+```
+
+---
+
+## GUIエディター
+
+スクリプトや設定をブラウザから編集できるGUIエディターを搭載しています。
+
+### 起動方法
+
+```bash
+# 初回のみ: 依存関係のインストール
+npm run editor:install
+
+# エディターを起動
+npm run editor
+```
+
+- **エディター画面**: http://localhost:3001
+- **API**: http://localhost:3002
+- **Remotion Studio**: http://localhost:3000（別途 `npm start` で起動）
+
+### 機能
+
+| タブ | 説明 |
+|------|------|
+| Script | セリフの一覧表示・編集・追加・削除 |
+| Settings | video-settings.yaml の編集 |
+
+### Script画面
+
+- テーブル形式でセリフを一覧表示
+- 行クリックで編集モーダルが開く
+- キャラクター・表情はドロップダウンで選択
+- Visual（画像/テキスト）、SE（効果音）も設定可能
+- 「+ Add Line」で新規セリフ追加
+
+### Settings画面
+
+- フォント、字幕、キャラクター、動画、カラーの設定をフォームで編集
+- 保存時に `npm run sync-settings` が自動実行される
+
+### Claude Code連携API
+
+Claude CodeがGUIを経由せずにスクリプトを操作するためのAPIも提供しています：
+
+```bash
+# 全メタデータ取得（token節約）
+curl http://localhost:3002/api/metadata/all
+
+# スクリプト取得
+curl http://localhost:3002/api/script
+
+# スクリプト更新
+curl -X PUT http://localhost:3002/api/script/1 \
+  -H "Content-Type: application/json" \
+  -d '{"text": "新しいセリフなのだ！"}'
 ```
 
 ---
@@ -260,6 +318,8 @@ colors:
 | `npm run build` | 動画出力（out/video.mp4） |
 | `npm run init` | 新規プロジェクト初期化（スクリプトをリセット） |
 | `npm run sync-settings` | YAML設定を反映＋画像スキャン |
+| `npm run editor` | GUIエディター起動（http://localhost:3001） |
+| `npm run editor:install` | GUIエディターの依存関係インストール |
 
 ### 手順
 
@@ -283,6 +343,9 @@ colors:
 │   │   └── SceneVisuals.tsx # シーン別ビジュアル
 │   ├── config.ts            # 基本設定
 │   └── Main.tsx             # メインコンポーネント
+├── editor/                  # GUIエディター
+│   ├── src/                 # フロントエンド（React + Vite）
+│   └── server/              # バックエンド（Express）
 ├── public/
 │   ├── images/              # キャラクター画像
 │   └── voices/              # 音声ファイル（自動生成）

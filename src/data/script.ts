@@ -86,7 +86,7 @@ export const scriptData: ScriptLine[] = [
     text: "ずんだもんなのだ！",
     scene: 1,
     voiceFile: "01_zundamon.wav",
-    durationInFrames: 53, // 1.45s
+    durationInFrames: 53,
     pauseAfter: 15,
     visual: {
       type: "text",
@@ -102,7 +102,7 @@ export const scriptData: ScriptLine[] = [
     text: "四国めたんです。",
     scene: 1,
     voiceFile: "02_metan.wav",
-    durationInFrames: 44, // 1.19s
+    durationInFrames: 44,
     pauseAfter: 15,
   },
   {
@@ -111,7 +111,7 @@ export const scriptData: ScriptLine[] = [
     text: "このテンプレートで紹介動画が作れるのだ！",
     scene: 1,
     voiceFile: "03_zundamon.wav",
-    durationInFrames: 123, // 3.39s
+    durationInFrames: 123,
     pauseAfter: 10,
   },
   {
@@ -120,7 +120,7 @@ export const scriptData: ScriptLine[] = [
     text: "よろしくね。",
     scene: 1,
     voiceFile: "04_metan.wav",
-    durationInFrames: 31, // 0.85s
+    durationInFrames: 31,
     pauseAfter: 30,
   },
 ];

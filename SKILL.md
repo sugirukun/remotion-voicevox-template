@@ -149,6 +149,88 @@ durationInFrames = 音声秒数 × 30fps × 1.2playbackRate
 | `npm run build` | 動画出力（out/video.mp4） |
 | `npm run init` | 新規プロジェクト初期化 |
 | `npm run sync-settings` | YAML設定を反映 |
+| `npm run editor` | GUIエディター起動（http://localhost:3001） |
+
+---
+
+## GUIエディターAPI（Claude Code連携用）
+
+GUIエディターのAPIを使用して、ファイルを直接読み書きせずにスクリプトを操作できます。
+APIを使用するとtoken消費を抑えられます。
+
+### 起動
+
+```bash
+npm run editor:install  # 初回のみ
+npm run editor          # http://localhost:3002 でAPI起動
+```
+
+### メタデータ取得（token節約）
+
+```bash
+curl http://localhost:3002/api/metadata/all
+```
+
+レスポンス例：
+```json
+{
+  "characters": [
+    { "id": "zundamon", "name": "ずんだもん", "speakerId": 3 },
+    { "id": "metan", "name": "四国めたん", "speakerId": 2 }
+  ],
+  "emotions": {
+    "zundamon": ["normal"],
+    "metan": ["normal"]
+  },
+  "animations": ["none", "fadeIn", "slideUp", "slideLeft", "zoomIn", "bounce"],
+  "visualTypes": ["none", "image", "text"]
+}
+```
+
+### スクリプト操作
+
+```bash
+# 全スクリプト取得
+curl http://localhost:3002/api/script
+
+# 特定行取得
+curl http://localhost:3002/api/script/1
+
+# 行更新
+curl -X PUT http://localhost:3002/api/script/1 \
+  -H "Content-Type: application/json" \
+  -d '{"text": "新しいセリフなのだ！"}'
+
+# 新規行追加
+curl -X POST http://localhost:3002/api/script \
+  -H "Content-Type: application/json" \
+  -d '{"character": "zundamon", "text": "追加セリフなのだ！", "scene": 1, "durationInFrames": 60, "pauseAfter": 15}'
+
+# 行削除
+curl -X DELETE http://localhost:3002/api/script/5
+```
+
+### 設定操作
+
+```bash
+# 設定取得
+curl http://localhost:3002/api/settings
+
+# 設定更新（sync-settings自動実行）
+curl -X PUT http://localhost:3002/api/settings \
+  -H "Content-Type: application/json" \
+  -d '{"font": {...}, "colors": {...}, ...}'
+```
+
+### アクション実行
+
+```bash
+# 音声生成
+curl -X POST http://localhost:3002/api/actions/generate-voices
+
+# 動画ビルド
+curl -X POST http://localhost:3002/api/actions/build-video
+```
 
 ---
 
