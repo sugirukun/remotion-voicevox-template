@@ -1,8 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as yaml from 'yaml';
 
 const ROOT_DIR = path.resolve(process.cwd(), '..');
-const SCRIPT_PATH = path.join(ROOT_DIR, 'src', 'data', 'script.ts');
+const SCRIPT_YAML_PATH = path.join(ROOT_DIR, 'config', 'script.yaml');
+const DEFAULTS_YAML_PATH = path.join(ROOT_DIR, 'config', 'defaults.yaml');
+const DURATIONS_PATH = path.join(ROOT_DIR, 'public', 'voices', 'durations.json');
 
 export interface ScriptLine {
   id: number;
@@ -10,8 +13,8 @@ export interface ScriptLine {
   text: string;
   displayText?: string;
   scene: number;
-  voiceFile: string;
-  durationInFrames: number;
+  voiceFile?: string;
+  durationInFrames?: number;
   pauseAfter: number;
   emotion?: string;
   visual?: {
@@ -28,95 +31,51 @@ export interface ScriptLine {
   };
 }
 
-// Parse scriptData from TypeScript file
-function parseScriptData(content: string): ScriptLine[] {
-  // Extract the scriptData array
-  const match = content.match(/export const scriptData:\s*ScriptLine\[\]\s*=\s*(\[[\s\S]*?\]);(?=\s*(?:\/\/|export|$))/);
-  if (!match) {
-    throw new Error('Could not find scriptData in script.ts');
-  }
-
-  const arrayStr = match[1];
-
-  // Convert to valid JSON by handling:
-  // 1. Remove comments
-  // 2. Add quotes to unquoted keys
-  // 3. Handle trailing commas
-  let jsonStr = arrayStr
-    // Remove single-line comments
-    .replace(/\/\/[^\n]*/g, '')
-    // Remove multi-line comments
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    // Quote unquoted keys (matches word characters before colons)
-    .replace(/(\s*)(\w+)(\s*:\s*)/g, '$1"$2"$3')
-    // Remove trailing commas before } or ]
-    .replace(/,(\s*[}\]])/g, '$1');
-
-  try {
-    return JSON.parse(jsonStr);
-  } catch (e) {
-    // Fallback: use eval in a safe way
-    const evalStr = `(${arrayStr})`;
-    return eval(evalStr);
-  }
+interface Defaults {
+  newLine: {
+    character: string;
+    pauseAfter: number;
+    durationInFrames: number;
+    scene: number;
+  };
+  automation: {
+    voiceOnSave: boolean;
+    autoVoiceFileName: boolean;
+  };
 }
 
-// Serialize scriptData back to TypeScript format
-function serializeScriptData(data: ScriptLine[]): string {
-  const lines = data.map((item, index) => {
-    const entries: string[] = [];
+function loadDefaults(): Defaults {
+  const content = fs.readFileSync(DEFAULTS_YAML_PATH, 'utf-8');
+  return yaml.parse(content);
+}
 
-    entries.push(`    id: ${item.id}`);
-    entries.push(`    character: "${item.character}"`);
-    entries.push(`    text: ${JSON.stringify(item.text)}`);
-    if (item.displayText) {
-      entries.push(`    displayText: ${JSON.stringify(item.displayText)}`);
-    }
-    entries.push(`    scene: ${item.scene}`);
-    entries.push(`    voiceFile: "${item.voiceFile}"`);
-    entries.push(`    durationInFrames: ${item.durationInFrames}`);
-    entries.push(`    pauseAfter: ${item.pauseAfter}`);
-    if (item.emotion) {
-      entries.push(`    emotion: "${item.emotion}"`);
-    }
-    if (item.visual && item.visual.type !== 'none') {
-      const visualLines: string[] = [];
-      visualLines.push(`      type: "${item.visual.type}"`);
-      if (item.visual.src) {
-        visualLines.push(`      src: ${JSON.stringify(item.visual.src)}`);
-      }
-      if (item.visual.text) {
-        visualLines.push(`      text: ${JSON.stringify(item.visual.text)}`);
-      }
-      if (item.visual.fontSize) {
-        visualLines.push(`      fontSize: ${item.visual.fontSize}`);
-      }
-      if (item.visual.color) {
-        visualLines.push(`      color: "${item.visual.color}"`);
-      }
-      if (item.visual.animation) {
-        visualLines.push(`      animation: "${item.visual.animation}"`);
-      }
-      entries.push(`    visual: {\n${visualLines.join(',\n')},\n    }`);
-    }
-    if (item.se) {
-      const seLines: string[] = [];
-      seLines.push(`      src: ${JSON.stringify(item.se.src)}`);
-      if (item.se.volume !== undefined) {
-        seLines.push(`      volume: ${item.se.volume}`);
-      }
-      entries.push(`    se: {\n${seLines.join(',\n')},\n    }`);
-    }
+function loadDurations(): Record<string, number> {
+  if (fs.existsSync(DURATIONS_PATH)) {
+    const content = fs.readFileSync(DURATIONS_PATH, 'utf-8');
+    return JSON.parse(content);
+  }
+  return {};
+}
 
-    return `  {\n${entries.join(',\n')},\n  }`;
-  });
+function processLine(line: ScriptLine, defaults: Defaults, durations: Record<string, number>): ScriptLine {
+  const voiceFile = `${String(line.id).padStart(2, '0')}_${line.character}.wav`;
+  const durationInFrames = durations[voiceFile] || defaults.newLine.durationInFrames;
 
-  return `[\n${lines.join(',\n')},\n]`;
+  return {
+    ...line,
+    voiceFile,
+    durationInFrames,
+    pauseAfter: line.pauseAfter ?? defaults.newLine.pauseAfter,
+  };
 }
 
 export function getScript(): ScriptLine[] {
-  const content = fs.readFileSync(SCRIPT_PATH, 'utf-8');
-  return parseScriptData(content);
+  const content = fs.readFileSync(SCRIPT_YAML_PATH, 'utf-8');
+  const rawScript: ScriptLine[] = yaml.parse(content) || [];
+  const defaults = loadDefaults();
+  const durations = loadDurations();
+
+  return rawScript.map(line => processLine(line, defaults, durations));
 }
 
 export function getScriptLine(id: number): ScriptLine | undefined {
@@ -125,54 +84,63 @@ export function getScriptLine(id: number): ScriptLine | undefined {
 }
 
 export function updateScriptLine(id: number, data: Partial<ScriptLine>): ScriptLine {
-  const content = fs.readFileSync(SCRIPT_PATH, 'utf-8');
-  const script = parseScriptData(content);
+  const content = fs.readFileSync(SCRIPT_YAML_PATH, 'utf-8');
+  const script: ScriptLine[] = yaml.parse(content) || [];
 
   const index = script.findIndex(line => line.id === id);
   if (index === -1) {
     throw new Error(`Script line with id ${id} not found`);
   }
 
-  script[index] = { ...script[index], ...data, id }; // Preserve original id
+  // Update only allowed fields (don't store computed fields)
+  const { voiceFile, durationInFrames, ...updateData } = data;
+  script[index] = { ...script[index], ...updateData, id };
 
-  const serialized = serializeScriptData(script);
-  const newContent = content.replace(
-    /export const scriptData:\s*ScriptLine\[\]\s*=\s*\[[\s\S]*?\];(?=\s*(?:\/\/|export|$))/,
-    `export const scriptData: ScriptLine[] = ${serialized};`
-  );
+  // Write back to YAML
+  const yamlContent = yaml.stringify(script, { lineWidth: 0 });
+  fs.writeFileSync(SCRIPT_YAML_PATH, `# スクリプトデータ\n# 編集後 npm run sync-script で反映\n\n${yamlContent}`);
 
-  fs.writeFileSync(SCRIPT_PATH, newContent);
-  return script[index];
+  // Return processed line
+  const defaults = loadDefaults();
+  const durations = loadDurations();
+  return processLine(script[index], defaults, durations);
 }
 
 export function createScriptLine(data: Omit<ScriptLine, 'id'>): ScriptLine {
-  const content = fs.readFileSync(SCRIPT_PATH, 'utf-8');
-  const script = parseScriptData(content);
+  const content = fs.readFileSync(SCRIPT_YAML_PATH, 'utf-8');
+  const script: ScriptLine[] = yaml.parse(content) || [];
+  const defaults = loadDefaults();
 
   // Generate new id
   const maxId = Math.max(0, ...script.map(line => line.id));
-  const newLine: ScriptLine = { ...data, id: maxId + 1 };
+  const newLine: ScriptLine = {
+    id: maxId + 1,
+    character: data.character || defaults.newLine.character,
+    text: data.text || '',
+    scene: data.scene ?? defaults.newLine.scene,
+    pauseAfter: data.pauseAfter ?? defaults.newLine.pauseAfter,
+  };
 
-  // Generate voiceFile if not provided
-  if (!newLine.voiceFile) {
-    newLine.voiceFile = `${String(newLine.id).padStart(2, '0')}_${newLine.character}.wav`;
-  }
+  // Add optional fields if present
+  if (data.displayText) newLine.displayText = data.displayText;
+  if (data.emotion) newLine.emotion = data.emotion;
+  if (data.visual) newLine.visual = data.visual;
+  if (data.se) newLine.se = data.se;
 
   script.push(newLine);
 
-  const serialized = serializeScriptData(script);
-  const newContent = content.replace(
-    /export const scriptData:\s*ScriptLine\[\]\s*=\s*\[[\s\S]*?\];(?=\s*(?:\/\/|export|$))/,
-    `export const scriptData: ScriptLine[] = ${serialized};`
-  );
+  // Write back to YAML
+  const yamlContent = yaml.stringify(script, { lineWidth: 0 });
+  fs.writeFileSync(SCRIPT_YAML_PATH, `# スクリプトデータ\n# 編集後 npm run sync-script で反映\n\n${yamlContent}`);
 
-  fs.writeFileSync(SCRIPT_PATH, newContent);
-  return newLine;
+  // Return processed line
+  const durations = loadDurations();
+  return processLine(newLine, defaults, durations);
 }
 
 export function deleteScriptLine(id: number): void {
-  const content = fs.readFileSync(SCRIPT_PATH, 'utf-8');
-  const script = parseScriptData(content);
+  const content = fs.readFileSync(SCRIPT_YAML_PATH, 'utf-8');
+  const script: ScriptLine[] = yaml.parse(content) || [];
 
   const index = script.findIndex(line => line.id === id);
   if (index === -1) {
@@ -181,18 +149,16 @@ export function deleteScriptLine(id: number): void {
 
   script.splice(index, 1);
 
-  const serialized = serializeScriptData(script);
-  const newContent = content.replace(
-    /export const scriptData:\s*ScriptLine\[\]\s*=\s*\[[\s\S]*?\];(?=\s*(?:\/\/|export|$))/,
-    `export const scriptData: ScriptLine[] = ${serialized};`
-  );
-
-  fs.writeFileSync(SCRIPT_PATH, newContent);
+  // Write back to YAML
+  const yamlContent = yaml.stringify(script, { lineWidth: 0 });
+  fs.writeFileSync(SCRIPT_YAML_PATH, `# スクリプトデータ\n# 編集後 npm run sync-script で反映\n\n${yamlContent}`);
 }
 
 export function reorderScript(ids: number[]): ScriptLine[] {
-  const content = fs.readFileSync(SCRIPT_PATH, 'utf-8');
-  const script = parseScriptData(content);
+  const content = fs.readFileSync(SCRIPT_YAML_PATH, 'utf-8');
+  const script: ScriptLine[] = yaml.parse(content) || [];
+  const defaults = loadDefaults();
+  const durations = loadDurations();
 
   // Create a map of id to script line
   const scriptMap = new Map(script.map(line => [line.id, line]));
@@ -206,19 +172,16 @@ export function reorderScript(ids: number[]): ScriptLine[] {
     }
   }
 
-  // Add any remaining lines that weren't in the ids array
+  // Add any remaining lines
   for (const line of script) {
     if (!ids.includes(line.id)) {
       reordered.push(line);
     }
   }
 
-  const serialized = serializeScriptData(reordered);
-  const newContent = content.replace(
-    /export const scriptData:\s*ScriptLine\[\]\s*=\s*\[[\s\S]*?\];(?=\s*(?:\/\/|export|$))/,
-    `export const scriptData: ScriptLine[] = ${serialized};`
-  );
+  // Write back to YAML
+  const yamlContent = yaml.stringify(reordered, { lineWidth: 0 });
+  fs.writeFileSync(SCRIPT_YAML_PATH, `# スクリプトデータ\n# 編集後 npm run sync-script で反映\n\n${yamlContent}`);
 
-  fs.writeFileSync(SCRIPT_PATH, newContent);
-  return reordered;
+  return reordered.map(line => processLine(line, defaults, durations));
 }

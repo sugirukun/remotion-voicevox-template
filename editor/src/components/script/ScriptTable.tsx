@@ -87,30 +87,12 @@ export function ScriptTable({
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">
-                ID
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-28">
-                Character
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Text
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
-                Scene
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
-                Emotion
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20 text-right">
-                Duration
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16 text-right">
-                Pause
-              </th>
-              <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
-                Actions
-              </th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16"></th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Char</th>
+              <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Text</th>
+              <th className="px-2 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-14">Dur</th>
+              <th className="px-2 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-14">Pause</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
