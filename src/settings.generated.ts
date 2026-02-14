@@ -19,7 +19,7 @@ export const SETTINGS = {
     "innerOutlineWidth": 8
   },
   "character": {
-    "height": 275,
+    "height": 400,
     "useImages": true,
     "imagesBasePath": "images"
   },
@@ -44,17 +44,41 @@ export const SETTINGS = {
 
 // キャラクターごとの利用可能な画像ファイル
 export const AVAILABLE_IMAGES: Record<string, string[]> = {
-  "kuro_zunda": [
-    "mouth_close.png",
-    "mouth_open.png"
-  ],
   "metan": [
+    "happy_close.png",
+    "happy_open.png",
     "mouth_close.png",
-    "mouth_open.png"
+    "mouth_open.png",
+    "sad_close.png",
+    "sad_open.png",
+    "shy_close.png",
+    "shy_open.png",
+    "surprised_close.png",
+    "surprised_open.png"
+  ],
+  "tsumugi": [
+    "happy_close.png",
+    "happy_open.png",
+    "mouth_close.png",
+    "mouth_open.png",
+    "sad_close.png",
+    "sad_open.png",
+    "shy_close.png",
+    "shy_open.png",
+    "surprised_close.png",
+    "surprised_open.png"
   ],
   "zundamon": [
+    "happy_close.png",
+    "happy_open.png",
     "mouth_close.png",
-    "mouth_open.png"
+    "mouth_open.png",
+    "sad_close.png",
+    "sad_open.png",
+    "shy_close.png",
+    "shy_open.png",
+    "surprised_close.png",
+    "surprised_open.png"
   ]
 };
 
