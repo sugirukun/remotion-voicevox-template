@@ -200,6 +200,43 @@ colors:
 
 ---
 
+## 新しい動画を作る流れ
+
+このテンプレートを使って新しい動画を作るときの手順です。
+
+```bash
+# 1. テンプレートをclone
+git clone https://github.com/sugirukun/remotion-voicevox-template.git 新しい動画名
+cd 新しい動画名
+npm install
+```
+
+```bash
+# 2. セリフを作成（Claude Codeまたは手動）
+#    config/script.yaml または src/data/script.ts を編集
+```
+
+```bash
+# 3. VOICEVOXを起動して音声生成
+npm run voices
+```
+
+```bash
+# 4. プレビュー確認
+npm start
+# → http://localhost:3000 で確認
+```
+
+```bash
+# 5. 動画出力
+npm run build
+# → out/video.mp4 が生成される
+```
+
+キャラクター画像（ずんだもん・めたん・つむぎ）と設定は最初から含まれているので、セリフを書くだけで動画が作れます。
+
+---
+
 ## 詳しい使い方
 
 詳細は **[CLAUDE.md](./CLAUDE.md)** を参照してください。
