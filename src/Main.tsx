@@ -1,6 +1,6 @@
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, Audio, Sequence, staticFile, Loop } from "remotion";
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, Audio, Sequence, staticFile, Loop, interpolate } from "remotion";
 import { loadFont } from "@remotion/google-fonts/MPLUSRounded1c";
-import { scriptData, scenes, ScriptLine, bgmConfig } from "./data/script";
+import { scriptData, scenes, ScriptLine, bgmConfig, bgmTracks, BGMTrack } from "./data/script";
 import { COLORS, VIDEO_CONFIG } from "./config";
 import { Subtitle } from "./components/Subtitle";
 import { Character } from "./components/Character";
@@ -12,6 +12,72 @@ const { fontFamily } = loadFont();
 // 再生速度を考慮したフレーム数を計算
 const getAdjustedFrames = (frames: number): number =>
   Math.ceil(frames / VIDEO_CONFIG.playbackRate);
+
+// BGMトラックの開始・終了フレームを計算
+const getBgmFrameRange = (track: BGMTrack): { startFrame: number; endFrame: number } => {
+  let startFrame = 0;
+  let endFrame = 0;
+  let accFrames = 0;
+
+  for (const line of scriptData) {
+    const dur = Math.ceil(line.durationInFrames / VIDEO_CONFIG.playbackRate);
+    const pause = Math.ceil(line.pauseAfter / VIDEO_CONFIG.playbackRate);
+    const lineEnd = accFrames + dur + pause;
+
+    if (track.startId !== undefined && line.id === track.startId) {
+      startFrame = accFrames;
+    }
+    if (track.endId !== undefined && line.id === track.endId) {
+      endFrame = lineEnd;
+    }
+    accFrames = lineEnd;
+  }
+
+  // startId/endId 省略時
+  if (track.startId === undefined) startFrame = 0;
+  if (track.endId === undefined) endFrame = accFrames;
+
+  return { startFrame, endFrame };
+};
+
+// フェード付きボリュームを計算するコンポーネント
+const BgmAudio: React.FC<{ track: BGMTrack; totalDuration: number }> = ({ track, totalDuration }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
+  const fadeInFrames = Math.round(track.fadeIn * fps);
+  const fadeOutFrames = Math.round(track.fadeOut * fps);
+  const baseVolume = track.volume;
+
+  const volume = () => {
+    let vol = baseVolume;
+    // フェードイン
+    if (fadeInFrames > 0 && frame < fadeInFrames) {
+      vol = interpolate(frame, [0, fadeInFrames], [0, baseVolume], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      });
+    }
+    // フェードアウト
+    if (fadeOutFrames > 0 && frame > totalDuration - fadeOutFrames) {
+      vol = interpolate(
+        frame,
+        [totalDuration - fadeOutFrames, totalDuration],
+        [baseVolume, 0],
+        { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+      );
+    }
+    return vol;
+  };
+
+  return (
+    <Audio
+      src={staticFile(`bgm/${track.src}`)}
+      volume={volume}
+      loop={track.loop}
+    />
+  );
+};
 
 export const Main: React.FC = () => {
   const frame = useCurrentFrame();
@@ -89,8 +155,23 @@ export const Main: React.FC = () => {
           borderRadius: "0 0 8px 8px",
         }}
       />
-      {/* BGM再生 */}
-      {bgmConfig && (
+      {/* BGM再生（マルチトラック対応） */}
+      {bgmTracks.map((track, index) => {
+        const { startFrame, endFrame } = getBgmFrameRange(track);
+        const duration = endFrame - startFrame;
+        if (duration <= 0) return null;
+        return (
+          <Sequence
+            key={`bgm-${index}`}
+            from={startFrame}
+            durationInFrames={duration}
+          >
+            <BgmAudio track={track} totalDuration={duration} />
+          </Sequence>
+        );
+      })}
+      {/* BGM再生（後方互換: 単一トラック） */}
+      {bgmConfig && bgmTracks.length === 0 && (
         <Audio
           src={staticFile(`bgm/${bgmConfig.src}`)}
           volume={bgmConfig.volume ?? 0.3}

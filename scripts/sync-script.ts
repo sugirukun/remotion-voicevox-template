@@ -13,6 +13,7 @@ const ROOT_DIR = process.cwd();
 const SCRIPT_YAML_PATH = path.join(ROOT_DIR, "config", "script.yaml");
 const CHARACTERS_YAML_PATH = path.join(ROOT_DIR, "config", "characters.yaml");
 const DEFAULTS_YAML_PATH = path.join(ROOT_DIR, "config", "defaults.yaml");
+const BGM_YAML_PATH = path.join(ROOT_DIR, "config", "bgm.yaml");
 const OUTPUT_PATH = path.join(ROOT_DIR, "src", "data", "script.ts");
 const DURATIONS_PATH = path.join(ROOT_DIR, "public", "voices", "durations.json");
 
@@ -60,6 +61,25 @@ interface Defaults {
   };
 }
 
+interface BGMTrack {
+  src: string;
+  volume?: number;
+  loop?: boolean;
+  startId?: number;
+  endId?: number;
+  fadeIn?: number;
+  fadeOut?: number;
+}
+
+function loadBgmConfig(): BGMTrack[] {
+  if (fs.existsSync(BGM_YAML_PATH)) {
+    const content = fs.readFileSync(BGM_YAML_PATH, "utf-8");
+    const parsed = yaml.parse(content);
+    return Array.isArray(parsed) ? parsed : [];
+  }
+  return [];
+}
+
 function loadDurations(): Record<string, number> {
   if (fs.existsSync(DURATIONS_PATH)) {
     const content = fs.readFileSync(DURATIONS_PATH, "utf-8");
@@ -82,6 +102,12 @@ function main() {
 
   // Load existing durations
   const durations = loadDurations();
+
+  // Load BGM config
+  const bgmTracks = loadBgmConfig();
+  if (bgmTracks.length > 0) {
+    console.log(`🎵 BGM: ${bgmTracks.length} トラック`);
+  }
 
   // Generate CharacterId type
   const characterIds = Object.keys(characters);
@@ -138,8 +164,33 @@ export interface BGMConfig {
   loop?: boolean;
 }
 
-// BGM設定（動画全体で使用）
+// BGMトラック設定（複数トラック対応）
+export interface BGMTrack {
+  src: string;
+  volume: number;
+  loop: boolean;
+  startId?: number;
+  endId?: number;
+  fadeIn: number;
+  fadeOut: number;
+}
+
+// BGM設定（動画全体で使用 - 後方互換）
 export const bgmConfig: BGMConfig | null = null;
+
+// BGMトラック一覧
+export const bgmTracks: BGMTrack[] = ${JSON.stringify(
+    bgmTracks.map(t => ({
+      src: t.src,
+      volume: t.volume ?? 0.3,
+      loop: t.loop ?? true,
+      startId: t.startId,
+      endId: t.endId,
+      fadeIn: t.fadeIn ?? 0,
+      fadeOut: t.fadeOut ?? 0,
+    })),
+    null, 2
+  )};
 
 // セリフデータの型定義
 export interface ScriptLine {
