@@ -431,15 +431,17 @@ Error: Could not find file: voices/XX_zundamon.wav
 
 ### BGM設定
 
-`src/data/script.ts`でBGMを設定：
+`config/bgm.yaml`でBGMを設定（`npm run sync-script`で`script.ts`に反映されます）：
 
-```typescript
-export const bgmConfig: BGMConfig = {
-  src: "background.mp3",  // public/bgm/内のファイル
-  volume: 0.3,
-  loop: true,
-};
+```yaml
+- src: "background.mp3"  # public/bgm/内のファイル
+  volume: 0.3
+  loop: true
+  fadeIn: 30   # フェードインのフレーム数
+  fadeOut: 30  # フェードアウトのフレーム数
 ```
+
+> **注意**: `src/data/script.ts`の`bgmConfig`を直接編集しても、`sync-script`実行時に上書きされます。必ず`config/bgm.yaml`を使用してください。
 
 ### 効果音
 

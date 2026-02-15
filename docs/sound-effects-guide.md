@@ -121,15 +121,17 @@ BGMも効果音ラボから入手できます。
 
 ### 設定方法
 
-`src/data/script.ts` で設定：
+`config/bgm.yaml` で設定（`npm run sync-script`で反映）：
 
-```typescript
-export const bgmConfig: BGMConfig = {
-  src: "background.mp3",  // public/bgm/background.mp3
-  volume: 0.3,            // 音声の邪魔にならないよう控えめに
-  loop: true,
-};
+```yaml
+- src: "background.mp3"  # public/bgm/background.mp3
+  volume: 0.3             # 音声の邪魔にならないよう控えめに
+  loop: true
+  fadeIn: 30              # フェードインのフレーム数
+  fadeOut: 30             # フェードアウトのフレーム数
 ```
+
+> **注意**: `src/data/script.ts`の`bgmConfig`を直接編集しても、`sync-script`実行時に上書きされます。必ず`config/bgm.yaml`を使用してください。
 
 ### おすすめBGM
 

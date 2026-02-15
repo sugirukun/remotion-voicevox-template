@@ -266,14 +266,16 @@ curl -X POST http://localhost:3002/api/actions/build-video
 
 ## BGM・効果音
 
-BGM設定（script.ts）：
-```typescript
-export const bgmConfig: BGMConfig = {
-  src: "background.mp3",  // public/bgm/
-  volume: 0.3,
-  loop: true,
-};
+BGM設定（config/bgm.yaml）：
+```yaml
+- src: "background.mp3"  # public/bgm/
+  volume: 0.3
+  loop: true
+  fadeIn: 30
+  fadeOut: 30
 ```
+
+> 注意: script.tsのbgmConfigはsync-scriptで上書きされるため、必ずconfig/bgm.yamlを使用すること。
 
 効果音（セリフごと）：
 ```typescript
