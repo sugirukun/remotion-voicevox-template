@@ -4,12 +4,21 @@ import type { ScriptLine, CharacterInfo } from '../../types';
 interface ScriptRowProps {
   line: ScriptLine;
   characters: CharacterInfo[];
+  startTime: number;
+  endTime: number;
   onEdit: () => void;
   onDelete: () => void;
+  onInsertAfter: () => void;
   onQuickUpdate: (field: keyof ScriptLine, value: number | string) => void;
 }
 
-export function ScriptRow({ line, characters, onEdit, onDelete, onQuickUpdate }: ScriptRowProps) {
+const formatTime = (sec: number) => {
+  const m = Math.floor(sec / 60);
+  const s = (sec % 60).toFixed(1).padStart(4, '0');
+  return `${m}:${s}`;
+};
+
+export function ScriptRow({ line, characters, startTime, endTime, onEdit, onDelete, onInsertAfter, onQuickUpdate }: ScriptRowProps) {
   const [editingField, setEditingField] = useState<'pauseAfter' | 'text' | null>(null);
   const [editValue, setEditValue] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
@@ -23,10 +32,15 @@ export function ScriptRow({ line, characters, onEdit, onDelete, onQuickUpdate }:
                          line.character === 'metan' ? 'bg-pink-100 text-pink-800' :
                          'bg-gray-100 text-gray-800';
 
+  // フレーム ↔ 秒 変換（fps=30, playbackRate=1.2）
+  const FRAMES_PER_SEC = 36;
+  const framesToSec = (frames: number) => (frames / FRAMES_PER_SEC).toFixed(1);
+  const secToFrames = (sec: number) => Math.round(sec * FRAMES_PER_SEC);
+
   const startEditing = (field: 'pauseAfter' | 'text', e: React.MouseEvent) => {
     e.stopPropagation();
     setEditingField(field);
-    setEditValue(String(line[field]));
+    setEditValue(field === 'pauseAfter' ? framesToSec(line.pauseAfter) : String(line[field]));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -39,9 +53,9 @@ export function ScriptRow({ line, characters, onEdit, onDelete, onQuickUpdate }:
 
   const saveEdit = () => {
     if (editingField === 'pauseAfter') {
-      const value = parseInt(editValue, 10);
-      if (!isNaN(value) && value >= 0) {
-        onQuickUpdate(editingField, value);
+      const sec = parseFloat(editValue);
+      if (!isNaN(sec) && sec >= 0) {
+        onQuickUpdate(editingField, secToFrames(sec));
       }
     } else if (editingField === 'text') {
       if (editValue.trim()) {
@@ -80,6 +94,10 @@ export function ScriptRow({ line, characters, onEdit, onDelete, onQuickUpdate }:
 
   return (
     <tr className="hover:bg-gray-50 cursor-pointer" onClick={onEdit}>
+      <td className="px-2 py-2 text-xs text-gray-400 tabular-nums whitespace-nowrap">
+        <div>{formatTime(startTime)}</div>
+        <div>{formatTime(endTime)}</div>
+      </td>
       <td className="px-2 py-2 text-sm text-gray-500">
         <div className="flex items-center gap-1">
           <button
@@ -121,6 +139,18 @@ export function ScriptRow({ line, characters, onEdit, onDelete, onQuickUpdate }:
           </>
         )}
       </td>
+      <td className="px-2 py-2 text-xs text-gray-500">
+        {line.visual?.type === 'image' && (
+          <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded truncate max-w-36" title={line.visual.src}>
+            🖼️ {line.visual.src}
+          </span>
+        )}
+        {line.visual?.type === 'text' && (
+          <span className="inline-flex items-center gap-1 bg-yellow-50 text-yellow-700 px-1.5 py-0.5 rounded truncate max-w-36" title={line.visual.text}>
+            📝 {line.visual.text?.split('\n')[0]}
+          </span>
+        )}
+      </td>
       <td className="px-2 py-2 text-sm text-gray-400 text-right tabular-nums">
         {line.durationInFrames}
       </td>
@@ -132,16 +162,22 @@ export function ScriptRow({ line, characters, onEdit, onDelete, onQuickUpdate }:
             onChange={(e) => setEditValue(e.target.value)}
             onBlur={saveEdit}
             onKeyDown={handleKeyDown}
-            className="w-14 px-1 py-0 text-right border border-blue-400 rounded text-sm"
+            className="w-16 px-1 py-0 text-right border border-blue-400 rounded text-sm"
             autoFocus
             min={0}
+            step={0.1}
           />
         ) : (
-          <span className="cursor-pointer hover:bg-blue-100 px-1 rounded">{line.pauseAfter}</span>
+          <span className="cursor-pointer hover:bg-blue-100 px-1 rounded">{framesToSec(line.pauseAfter)}s</span>
         )}
       </td>
       <td className="px-2 py-2 text-sm">
         <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+          <button
+            onClick={onInsertAfter}
+            className="text-green-600 hover:text-green-800 font-bold text-base leading-none"
+            title="この行の後に挿入"
+          >+</button>
           <button onClick={onDelete} className="text-red-500 hover:text-red-700">Del</button>
         </div>
       </td>

@@ -89,17 +89,27 @@ export const SceneVisuals: React.FC<SceneVisualsProps> = ({
     return null;
   }
 
-  // 画像表示
+  // 画像表示（黒板と同じ座標に合わせる）
   if (visual.type === "image" && visual.src) {
     return (
-      <div style={contentContainer}>
+      <div
+        style={{
+          position: "absolute",
+          top: 40,
+          left: 60,
+          right: 60,
+          bottom: 160,
+          overflow: "hidden",
+          borderRadius: 8,
+          ...animationStyle,
+        }}
+      >
         <Img
           src={staticFile(`content/${visual.src}`)}
           style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
+            width: "100%",
+            height: "100%",
             objectFit: "contain",
-            borderRadius: 8,
           }}
         />
       </div>

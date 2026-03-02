@@ -10,6 +10,7 @@ const parser = loadDefaultJapaneseParser();
 interface SubtitleProps {
   text: string;
   character: CharacterId;
+  durationInFrames: number;
 }
 
 // BudouXで分割したテキストをレンダリングするコンポーネント
@@ -41,9 +42,15 @@ const BudouXText = ({ text }: { text: string }) => {
   );
 };
 
-export const Subtitle: React.FC<SubtitleProps> = ({ text, character }) => {
+export const Subtitle: React.FC<SubtitleProps> = ({ text, character, durationInFrames }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+
+  // \n で分割されている場合は時間で切り替え
+  const segments = text.split("\n");
+  const displayText = segments.length > 1
+    ? segments[Math.min(Math.floor(frame / (durationInFrames / segments.length)), segments.length - 1)]
+    : text;
 
   // 設定から値を取得
   const { font, subtitle, colors } = SETTINGS;
@@ -101,7 +108,7 @@ export const Subtitle: React.FC<SubtitleProps> = ({ text, character }) => {
             paintOrder: "stroke fill",
           }}
         >
-          <BudouXText text={text} />
+          <BudouXText text={displayText} />
         </span>
         {/* 本文（前） */}
         <span
@@ -111,7 +118,7 @@ export const Subtitle: React.FC<SubtitleProps> = ({ text, character }) => {
             color: textColor,
           }}
         >
-          <BudouXText text={text} />
+          <BudouXText text={displayText} />
         </span>
       </div>
     </div>

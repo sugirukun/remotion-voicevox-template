@@ -5,22 +5,31 @@ interface ScriptEditorProps {
   line: ScriptLine;
   metadata: Metadata;
   isNew: boolean;
+  insertAfterId?: number;
   onSave: (data: Partial<ScriptLine>) => Promise<void>;
   onClose: () => void;
 }
+
+// fps=30, playbackRate=1.2
+const FRAMES_PER_SEC = 36;
+const framesToSec = (f: number) => (f / FRAMES_PER_SEC).toFixed(1);
+const secToFrames = (s: string) => Math.round(parseFloat(s) * FRAMES_PER_SEC);
 
 export function ScriptEditor({
   line,
   metadata,
   isNew,
+  insertAfterId,
   onSave,
   onClose,
 }: ScriptEditorProps) {
   const [formData, setFormData] = useState<ScriptLine>(line);
+  const [pauseSecStr, setPauseSecStr] = useState(framesToSec(line.pauseAfter));
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     setFormData(line);
+    setPauseSecStr(framesToSec(line.pauseAfter));
   }, [line]);
 
   const handleChange = (field: keyof ScriptLine, value: unknown) => {
@@ -66,7 +75,11 @@ export function ScriptEditor({
       <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
           <h3 className="text-lg font-semibold">
-            {isNew ? 'Add Script Line' : `Edit Line #${line.id}`}
+            {isNew
+              ? insertAfterId !== undefined
+                ? `Insert After #${insertAfterId}`
+                : 'Add Script Line (末尾)'
+              : `Edit Line #${line.id}`}
           </h3>
           <button
             onClick={onClose}
@@ -159,13 +172,20 @@ export function ScriptEditor({
             {/* Pause After */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Pause After (frames)
+                間（秒）
               </label>
               <input
                 type="number"
-                value={formData.pauseAfter}
-                onChange={(e) => handleChange('pauseAfter', parseInt(e.target.value, 10))}
+                value={pauseSecStr}
+                onChange={(e) => {
+                  setPauseSecStr(e.target.value);
+                  const frames = secToFrames(e.target.value);
+                  if (!isNaN(frames) && frames >= 0) {
+                    handleChange('pauseAfter', frames);
+                  }
+                }}
                 min={0}
+                step={0.1}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
@@ -221,13 +241,13 @@ export function ScriptEditor({
             {formData.visual?.type === 'text' && (
               <div className="mt-2 space-y-2">
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">Visual Text</label>
-                  <input
-                    type="text"
+                  <label className="block text-xs text-gray-500 mb-1">Visual Text（改行OK）</label>
+                  <textarea
                     value={formData.visual?.text || ''}
                     onChange={(e) => handleVisualChange('text', e.target.value)}
-                    placeholder="Text to display"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    placeholder="Text to display&#10;改行して複数行にできます"
+                    rows={4}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-y"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">

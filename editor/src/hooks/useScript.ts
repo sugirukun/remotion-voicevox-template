@@ -35,10 +35,12 @@ export function useScript() {
     }
   }, []);
 
-  const createLine = useCallback(async (data: Omit<ScriptLine, 'id'>) => {
+  const createLine = useCallback(async (data: Omit<ScriptLine, 'id'>, insertAfterId?: number) => {
     try {
-      const created = await scriptApi.create(data);
-      setScript(prev => [...prev, created]);
+      const created = await scriptApi.create(data, insertAfterId);
+      // IDs are renumbered on insert, so refresh full list
+      const updated = await scriptApi.getAll();
+      setScript(updated);
       return created;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');

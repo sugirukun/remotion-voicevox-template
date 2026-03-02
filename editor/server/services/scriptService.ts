@@ -1,9 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as yaml from 'yaml';
+import { exec } from 'child_process';
 
 const ROOT_DIR = path.resolve(process.cwd(), '..');
 const SCRIPT_YAML_PATH = path.join(ROOT_DIR, 'config', 'script.yaml');
+
+function syncScript() {
+  exec('npm run sync-script', { cwd: ROOT_DIR }, (err) => {
+    if (err) console.error('sync-script failed:', err.message);
+  });
+}
 const DEFAULTS_YAML_PATH = path.join(ROOT_DIR, 'config', 'defaults.yaml');
 const DURATIONS_PATH = path.join(ROOT_DIR, 'public', 'voices', 'durations.json');
 
@@ -99,6 +106,7 @@ export function updateScriptLine(id: number, data: Partial<ScriptLine>): ScriptL
   // Write back to YAML
   const yamlContent = yaml.stringify(script, { lineWidth: 0 });
   fs.writeFileSync(SCRIPT_YAML_PATH, `# スクリプトデータ\n# 編集後 npm run sync-script で反映\n\n${yamlContent}`);
+  syncScript();
 
   // Return processed line
   const defaults = loadDefaults();
@@ -106,15 +114,13 @@ export function updateScriptLine(id: number, data: Partial<ScriptLine>): ScriptL
   return processLine(script[index], defaults, durations);
 }
 
-export function createScriptLine(data: Omit<ScriptLine, 'id'>): ScriptLine {
+export function createScriptLine(data: Omit<ScriptLine, 'id'>, insertAfterId?: number): ScriptLine {
   const content = fs.readFileSync(SCRIPT_YAML_PATH, 'utf-8');
   const script: ScriptLine[] = yaml.parse(content) || [];
   const defaults = loadDefaults();
 
-  // Generate new id
-  const maxId = Math.max(0, ...script.map(line => line.id));
   const newLine: ScriptLine = {
-    id: maxId + 1,
+    id: 0, // Will be renumbered below
     character: data.character || defaults.newLine.character,
     text: data.text || '',
     scene: data.scene ?? defaults.newLine.scene,
@@ -127,15 +133,30 @@ export function createScriptLine(data: Omit<ScriptLine, 'id'>): ScriptLine {
   if (data.visual) newLine.visual = data.visual;
   if (data.se) newLine.se = data.se;
 
-  script.push(newLine);
+  // Insert at position or append
+  if (insertAfterId !== undefined) {
+    const insertIdx = script.findIndex(line => line.id === insertAfterId);
+    if (insertIdx !== -1) {
+      script.splice(insertIdx + 1, 0, newLine);
+    } else {
+      script.push(newLine);
+    }
+  } else {
+    script.push(newLine);
+  }
+
+  // Renumber all lines sequentially
+  script.forEach((line, i) => { line.id = i + 1; });
+  const savedLine = script.find(l => l.character === newLine.character && l.text === newLine.text && l.scene === newLine.scene) || script[script.length - 1];
 
   // Write back to YAML
   const yamlContent = yaml.stringify(script, { lineWidth: 0 });
   fs.writeFileSync(SCRIPT_YAML_PATH, `# スクリプトデータ\n# 編集後 npm run sync-script で反映\n\n${yamlContent}`);
+  syncScript();
 
   // Return processed line
   const durations = loadDurations();
-  return processLine(newLine, defaults, durations);
+  return processLine(savedLine, defaults, durations);
 }
 
 export function deleteScriptLine(id: number): void {
@@ -152,6 +173,7 @@ export function deleteScriptLine(id: number): void {
   // Write back to YAML
   const yamlContent = yaml.stringify(script, { lineWidth: 0 });
   fs.writeFileSync(SCRIPT_YAML_PATH, `# スクリプトデータ\n# 編集後 npm run sync-script で反映\n\n${yamlContent}`);
+  syncScript();
 }
 
 export function reorderScript(ids: number[]): ScriptLine[] {

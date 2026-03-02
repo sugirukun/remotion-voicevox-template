@@ -7,9 +7,20 @@ interface ScriptTableProps {
   script: ScriptLine[];
   metadata: Metadata;
   onUpdate: (id: number, data: Partial<ScriptLine>) => Promise<ScriptLine>;
-  onCreate: (data: Omit<ScriptLine, 'id'>) => Promise<ScriptLine>;
+  onCreate: (data: Omit<ScriptLine, 'id'>, insertAfterId?: number) => Promise<ScriptLine>;
   onDelete: (id: number) => Promise<void>;
 }
+
+// 各セリフの開始・終了秒を計算（fps=30, playbackRate=1.2）
+const FRAMES_PER_SEC = 36;
+const computeTimes = (script: ScriptLine[]) => {
+  let acc = 0;
+  return script.map((line) => {
+    const start = acc;
+    acc += (line.durationInFrames + line.pauseAfter) / FRAMES_PER_SEC;
+    return { start, end: acc };
+  });
+};
 
 export function ScriptTable({
   script,
@@ -20,10 +31,14 @@ export function ScriptTable({
 }: ScriptTableProps) {
   const [editingLine, setEditingLine] = useState<ScriptLine | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [insertAfterId, setInsertAfterId] = useState<number | undefined>(undefined);
+
+  const times = computeTimes(script);
 
   const handleEdit = (line: ScriptLine) => {
     setEditingLine(line);
     setIsCreating(false);
+    setInsertAfterId(undefined);
   };
 
   const handleCreate = () => {
@@ -39,6 +54,22 @@ export function ScriptTable({
     };
     setEditingLine(newLine);
     setIsCreating(true);
+    setInsertAfterId(undefined);
+  };
+
+  const handleInsertAfter = (line: ScriptLine) => {
+    const newLine: ScriptLine = {
+      id: 0,
+      character: line.character,
+      text: '',
+      scene: line.scene,
+      voiceFile: '',
+      durationInFrames: 60,
+      pauseAfter: 15,
+    };
+    setEditingLine(newLine);
+    setIsCreating(true);
+    setInsertAfterId(line.id);
   };
 
   const handleSave = async (data: Partial<ScriptLine>) => {
@@ -46,12 +77,13 @@ export function ScriptTable({
 
     try {
       if (isCreating) {
-        await onCreate(data as Omit<ScriptLine, 'id'>);
+        await onCreate(data as Omit<ScriptLine, 'id'>, insertAfterId);
       } else {
         await onUpdate(editingLine.id, data);
       }
       setEditingLine(null);
       setIsCreating(false);
+      setInsertAfterId(undefined);
     } catch (err) {
       console.error('Failed to save:', err);
     }
@@ -69,6 +101,7 @@ export function ScriptTable({
   const handleClose = () => {
     setEditingLine(null);
     setIsCreating(false);
+    setInsertAfterId(undefined);
   };
 
   return (
@@ -88,21 +121,26 @@ export function ScriptTable({
           <thead className="bg-gray-50">
             <tr>
               <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16"></th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-28">開始 → 終了</th>
               <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Char</th>
               <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Text</th>
+              <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Visual</th>
               <th className="px-2 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-14">Dur</th>
-              <th className="px-2 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-14">Pause</th>
+              <th className="px-2 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-16">間(秒)</th>
               <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {script.map((line) => (
+            {script.map((line, index) => (
               <ScriptRow
                 key={line.id}
                 line={line}
                 characters={metadata.characters}
+                startTime={times[index].start}
+                endTime={times[index].end}
                 onEdit={() => handleEdit(line)}
                 onDelete={() => handleDelete(line.id)}
+                onInsertAfter={() => handleInsertAfter(line)}
                 onQuickUpdate={(field, value) => onUpdate(line.id, { [field]: value })}
               />
             ))}
@@ -121,6 +159,7 @@ export function ScriptTable({
           line={editingLine}
           metadata={metadata}
           isNew={isCreating}
+          insertAfterId={insertAfterId}
           onSave={handleSave}
           onClose={handleClose}
         />

@@ -53,8 +53,8 @@ scriptRouter.put('/:id', (req: Request, res: Response) => {
 // POST /api/script - Create a new script line
 scriptRouter.post('/', (req: Request, res: Response) => {
   try {
-    const data = req.body;
-    const created = createScriptLine(data);
+    const { insertAfterId, ...data } = req.body;
+    const created = createScriptLine(data, insertAfterId !== undefined ? Number(insertAfterId) : undefined);
     res.status(201).json(created);
   } catch (error) {
     console.error('Error creating script line:', error);

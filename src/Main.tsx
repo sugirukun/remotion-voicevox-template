@@ -90,10 +90,14 @@ export const Main: React.FC = () => {
   let currentScene = 1;
   let isSpeaking = false;
 
+  let lastVisual = currentLine?.visual;
+
   for (const line of scriptData) {
     const adjustedDuration = getAdjustedFrames(line.durationInFrames);
     const adjustedPause = getAdjustedFrames(line.pauseAfter);
     const lineEndFrame = accumulatedFrames + adjustedDuration + adjustedPause;
+
+    if (line.visual) lastVisual = line.visual;
 
     if (frame >= accumulatedFrames && frame < lineEndFrame) {
       currentLine = line;
@@ -210,7 +214,7 @@ export const Main: React.FC = () => {
         lineId={currentLine?.id ?? null}
         frame={frame}
         fps={fps}
-        visual={currentLine?.visual}
+        visual={currentLine?.visual ?? lastVisual}
       />
 
       {/* キャラクター */}
@@ -235,6 +239,7 @@ export const Main: React.FC = () => {
           <Subtitle
             text={currentLine.displayText ?? currentLine.text}
             character={currentLine.character}
+            durationInFrames={getLineDuration(currentLine)}
           />
         </Sequence>
       )}

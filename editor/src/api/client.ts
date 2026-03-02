@@ -26,11 +26,11 @@ export const scriptApi = {
     return res.json();
   },
 
-  async create(data: Omit<ScriptLine, 'id'>): Promise<ScriptLine> {
+  async create(data: Omit<ScriptLine, 'id'>, insertAfterId?: number): Promise<ScriptLine> {
     const res = await fetch(`${API_BASE}/script`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(insertAfterId !== undefined ? { ...data, insertAfterId } : data),
     });
     if (!res.ok) throw new Error('Failed to create script line');
     return res.json();
