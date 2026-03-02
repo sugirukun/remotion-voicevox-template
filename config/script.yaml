@@ -1,0 +1,27 @@
+# スクリプトデータ
+# 編集後 npm run sync-script で反映
+# または npm run editor でGUIエディターから編集
+
+- id: 1
+  character: zundamon
+  text: こんにちは！ずんだもんなのだ！
+  displayText: こんにちは！ずんだもんなのだ！
+  scene: 1
+  pauseAfter: 18
+  emotion: happy
+  visual:
+    type: text
+    text: テンプレート動画
+    fontSize: 90
+    color: "#ffffff"
+    animation: fadeIn
+- id: 2
+  character: metan
+  text: 四国めたんよ。よろしくね。
+  scene: 1
+  pauseAfter: 18
+- id: 3
+  character: zundamon
+  text: 今日は〇〇について紹介するのだ！
+  scene: 1
+  pauseAfter: 36
