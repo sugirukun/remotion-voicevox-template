@@ -11,7 +11,6 @@
   visual:
     type: text
     text: |-
-      アプリは全て無料！
       外出先からMac miniをリモート
       iPadとiPhone で実現！
     fontSize: 90
@@ -27,7 +26,9 @@
 - id: 3
   character: zundamon
   text: そうなのだ！テールスケールとラストデスクを使えば、モバイル回線でも安全に接続できるのだ！
-  displayText: そうなのだ！TailscaleとRustDeskを使えば、モバイル回線でも安全に接続できるのだ！
+  displayText: |-
+    そうなのだ！Tailscale（無料）とRustDesk（無料）
+    を使えば、モバイル回線でも安全に接続できるのだ！
   scene: 1
   pauseAfter: 20
   emotion: happy
@@ -52,6 +53,7 @@
     fontSize: 45
     color: "#ffffff"
     animation: fadeIn
+  displayText: まず全体の構成を説明するのだ！
 - id: 5
   character: metan
   text: アイフォンがテザリングしながらテールスケールでヴィーピーエヌを張るのね。
@@ -91,17 +93,22 @@
   scene: 3
   pauseAfter: 10
   emotion: thinking
+  displayText: 何を準備すればいいの？
 - id: 9
   character: zundamon
-  text: マックミニに次の３つをインストールするのだ。
-  displayText: Mac miniに次の３つをインストールするのだ。
+  text: |-
+    まずはグーグルでジーメールアカウントを作っておく。
+    そしてマックミニに次の３つをインストールするのだ。
+  displayText: |-
+    まずはGoogleでGmailアカウントを作っておく。
+    そしてMac miniに次の３つをインストールするのだ。
   scene: 3
   pauseAfter: 15
 - id: 10
   character: zundamon
   text: テールスケール、ラストデスク、アンフェタミンなのだ！
   displayText: |-
-    Tailscale・RustDesk・Amphetamine
+    Tailscale（無料）・RustDesk（無料）・Amphetamine（無料）
     の３つをインストール！
   scene: 3
   pauseAfter: 15
@@ -111,7 +118,7 @@
       ① Tailscale をインストール
       ② RustDesk をインストール
       ③ Amphetamine をインストール
-    fontSize: 60
+    fontSize: 77
     color: "#ffffff"
     animation: fadeIn
 - id: 11
@@ -177,6 +184,10 @@
   scene: 3
   pauseAfter: 15
   displayText: これね。RustDeskもAmphetamineもここに表示されていたらOKね。
+  visual:
+    type: image
+    src: TailscaleIP.png
+    animation: fadeIn
 - id: 17
   character: zundamon
   text: 次にアイフォンの手順を説明するのだ！
@@ -197,6 +208,9 @@
   scene: 4
   pauseAfter: 15
   displayText: iPhoneにも同じようにTailscaleのアプリはインストールしておくのだ。
+  visual:
+    type: image
+    src: tailscaleアイコン.PNG
 - id: 19
   character: zundamon
   text: ステップ1！設定からモバイル通信をオンにするのだ！普通、スマホを使う人は当然オンになっているから、ここは特に意識しなくてもいいはずなのだ。
@@ -213,6 +227,9 @@
   displayText: STEP 2！Tailscaleアプリを開いてConnectボタンをタップするのだ！Connectedになるまで待つのだ！
   scene: 4
   pauseAfter: 10
+  visual:
+    type: image
+    src: tailscale画面.PNG
 - id: 21
   character: metan
   text: ヴィーピーエヌマークが画面上部に出るまで待てばいいのね。
@@ -220,35 +237,54 @@
   scene: 4
   pauseAfter: 10
   emotion: thinking
+  visual:
+    type: image
+    src: VPN.jpeg
 - id: 22
   character: zundamon
-  text: |-
-    ステップ3！設定のインターネット共有から
-    ほかの人の接続を許可をオンにするのだ！
-    これでアイパッドにテザリングできるのだ！
+  text: ステップ3！設定のインターネット共有からほかの人の接続を許可をオンにするのだ！これでアイパッドにテザリングできるのだ！
   scene: 4
   pauseAfter: 20
+  visual:
+    type: image
+    src: テザリング1.jpeg
+  displayText: ステップ3！設定のインターネット共有からほかの人の接続を許可をオンにするのだ！これでiPadにテザリングできるのだ！
 - id: 23
   character: zundamon
-  text: 次はアイパッドの手順なのだ！
-  displayText: 次はiPadの手順なのだ！
+  text: ここもおん
+  scene: 4
+  pauseAfter: 15
+  displayText: ここもオン！
+  visual:
+    type: image
+    src: テザリング2.PNG
+- id: 24
+  character: zundamon
+  text: 次はアイパッドの手順なのだ！アイパッドもテイルスケールをインストールしておくのだ
+  displayText: |-
+    次はiPadの手順なのだ！
+    iPadもTailscale をインストールしておくのだ
   scene: 5
   pauseAfter: 10
   visual:
-    type: text
+    type: image
     text: |-
       【iPad】
       外出先での手順
     fontSize: 80
     color: "#ffffff"
     animation: slideUp
-- id: 24
+    src: ipad tailscale.jpg
+- id: 25
   character: zundamon
   text: ステップ1！設定のワイファイからアイフォンの名前を選んで接続するのだ！
   displayText: STEP 1！設定のWi-FiからiPhoneの名前を選んで接続するのだ！
   scene: 5
   pauseAfter: 10
-- id: 25
+  visual:
+    type: image
+    src: wifi1.PNG
+- id: 26
   character: metan
   text: テザリングワイファイのパスワードはアイフォンで自分で作成して、最初にアイパッドにパスワードを入力すれば次からは自動で接続されるのね。
   scene: 5
@@ -258,19 +294,26 @@
     iPhoneで自分で作成して、
     最初にiPadにパスワードを入力すれば
     次からは自動で接続されるのね。
-- id: 26
+  visual:
+    type: image
+    src: wifi2.PNG
+- id: 27
   character: zundamon
-  text: ステップ2！ラストデスクアプリを起動して、接続先入力欄にマックミニのリモートアイディを入力するのだ！
-  displayText: STEP 2！RustDeskアプリを起動して、接続先入力欄にMac miniのリモートIDを入力するのだ！
+  text: ステップ2！アイパッドにもインストールした、ラストデスクアプリを起動して、接続先入力欄にマックミニのラストデスクに表示されたリモートアイディを入力するのだ！
+  displayText: STEP 2！iPadにもインストールした、RustDeskアプリを起動して、接続先入力欄にMac miniのRustDeskに表示されたリモートIDを入力するのだ！
   scene: 5
   pauseAfter: 10
-- id: 27
+  visual:
+    type: image
+    src: Rustdesk.jpg
+- id: 28
   character: metan
   text: 固定パスワードを入力すれば接続完了ね！
   scene: 5
   pauseAfter: 10
   emotion: happy
-- id: 28
+  displayText: 固定パスワードを入力すれば接続完了ね！
+- id: 29
   character: zundamon
   text: テールスケールが両デバイスで接続済みなら、リモートアイディで接続しても自動的にテールスケール経由で通信されるから安全なのだ！
   displayText: |-
@@ -280,14 +323,14 @@
   scene: 5
   pauseAfter: 10
   emotion: happy
-- id: 29
+- id: 30
   character: metan
   text: マックミニの画面がアイパッドに表示されれば成功ね！
   displayText: Mac miniの画面がiPadに表示されれば成功ね！
   scene: 5
   pauseAfter: 20
   emotion: happy
-- id: 30
+- id: 31
   character: zundamon
   text: さらにアイフォンをコントローラーとして使う方法も紹介するのだ！ターミウスというアプリを使うのだ！
   displayText: さらにiPhoneをコントローラーとして使う方法も紹介するのだ！Termiusというアプリを使うのだ！
@@ -302,14 +345,14 @@
     fontSize: 64
     color: "#ffffff"
     animation: slideUp
-- id: 31
+- id: 32
   character: metan
   text: ターミウスってなに？
   displayText: Termiusってなに？
   scene: 6
   pauseAfter: 10
   emotion: thinking
-- id: 32
+- id: 33
   character: zundamon
   text: アイフォンで使えるエスエスエイチクライアントなのだ！マックミニにターミナルでリモート接続できるアプリなのだ！
   displayText: |-
@@ -318,7 +361,7 @@
   scene: 6
   pauseAfter: 10
   emotion: happy
-- id: 33
+- id: 34
   character: zundamon
   text: アプリストアからターミウスをインストールして、ホスト設定にマックミニのテールスケールアドレスを登録するのだ！
   displayText: |-
@@ -335,16 +378,17 @@
     fontSize: 52
     color: "#ffffff"
     animation: fadeIn
-- id: 34
+- id: 35
   character: metan
   text: 接続できたらどうするの？
   scene: 6
   pauseAfter: 10
   emotion: thinking
-- id: 35
+  displayText: 接続できたらどうするの？
+- id: 36
   character: zundamon
-  text: ターミナルでクロードと入力してクロードコードを起動するのだ！それだけなのだ！
-  displayText: ターミナルで「claude」と入力してClaude Codeを起動するのだ！それだけなのだ！
+  text: ターミナルでクロードと入力してクロードコードを起動するのだ！それだけなのだ！ただしクロードコードはアンソロピックのクロードのサブスクを契約していないと使えないのだ。
+  displayText: ターミナルで「claude」と入力してClaude Codeを起動するのだ！それだけなのだ！※2026/03/01　現在　別途claudeのサブスク契約は必要となります！！
   scene: 6
   pauseAfter: 10
   emotion: happy
@@ -354,13 +398,14 @@
     fontSize: 72
     color: "#00ff88"
     animation: fadeIn
-- id: 36
+- id: 37
   character: metan
   text: 起動したらどうやって指示を出すの？
   scene: 6
   pauseAfter: 10
   emotion: thinking
-- id: 37
+  displayText: 接続できたらどうするの？
+- id: 38
   character: zundamon
   text: アイフォンのキーボードの音声入力ボタンをタップして、しゃべるだけなのだ！日本語でもちゃんと認識されるのだ！
   displayText: |-
@@ -377,7 +422,7 @@
     fontSize: 70
     color: "#ffffff"
     animation: fadeIn
-- id: 38
+- id: 39
   character: zundamon
   text: アイパッドがモニター代わり、アイフォンがキーボード代わりなのだ！音声入力で完全ハンズフリーのコーディングが実現するのだ！
   displayText: |-
@@ -397,14 +442,14 @@
     fontSize: 60
     color: "#ffffff"
     animation: zoomIn
-- id: 39
+- id: 40
   character: metan
   text: キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！
   scene: 6
   pauseAfter: 10
   emotion: surprised
   displayText: キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！
-- id: 40
+- id: 41
   character: zundamon
   text: これで外出先からアイパッドとアイフォンでマックミニをフル活用できるのだ！
   displayText: これで外出先からiPadとiPhoneでMac miniをフル活用できるのだ！
@@ -420,26 +465,26 @@
     fontSize: 72
     color: "#ffffff"
     animation: zoomIn
-- id: 41
+- id: 42
   character: metan
   text: カフェや図書館でも、自宅のマックミニで本格的な作業ができるわね！
   displayText: カフェや図書館でも、自宅のMac miniで本格的な作業ができるわね！
   scene: 8
   pauseAfter: 10
   emotion: happy
-- id: 42
+- id: 43
   character: zundamon
   text: さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。
   scene: 8
   pauseAfter: 15
   displayText: さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。
-- id: 43
+- id: 44
   character: metan
   text: 確かに、ちょっと危ない人に見られるわね。
   scene: 8
   pauseAfter: 15
   displayText: 確かに、ちょっと危ない人に見られるわね。
-- id: 44
+- id: 45
   character: zundamon
   text: 簡単な説明だけどこれで説明はおわりなのだ。家で眠っているアイパッドがあれば試して欲しいのだ。それじゃあバイバイなのだ。
   scene: 8
@@ -448,15 +493,17 @@
     簡単な説明だけどこれで説明はおわりなのだ。
     家で眠っているiPadがあれば試して欲しいのだ。
     それじゃあバイバイなのだ。
-- id: 45
+- id: 46
   character: metan
   text: バイバイ！
   scene: 8
   pauseAfter: 0
   emotion: happy
-- id: 46
+  displayText: バイバイ！
+- id: 47
   character: zundamon
   text: バイバイなのだ！
   scene: 8
   pauseAfter: 60
   emotion: happy
+  displayText: バイバイなのだ！

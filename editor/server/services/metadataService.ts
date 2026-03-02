@@ -4,6 +4,7 @@ import * as yaml from 'yaml';
 
 const ROOT_DIR = path.resolve(process.cwd(), '..');
 const IMAGES_DIR = path.join(ROOT_DIR, 'public', 'images');
+const CONTENT_DIR = path.join(ROOT_DIR, 'public', 'content');
 const CHARACTERS_YAML_PATH = path.join(ROOT_DIR, 'config', 'characters.yaml');
 
 export interface CharacterInfo {
@@ -17,6 +18,7 @@ export interface Metadata {
   emotions: Record<string, string[]>;
   animations: string[];
   visualTypes: string[];
+  contentImages: string[];
 }
 
 interface CharacterConfig {
@@ -95,6 +97,14 @@ export function getAnimations(): string[] {
   return ANIMATIONS;
 }
 
+export function getContentImages(): string[] {
+  if (!fs.existsSync(CONTENT_DIR)) return [];
+  const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+  return fs.readdirSync(CONTENT_DIR)
+    .filter(f => IMAGE_EXTS.includes(path.extname(f).toLowerCase()))
+    .sort();
+}
+
 export function getVisualTypes(): string[] {
   return VISUAL_TYPES;
 }
@@ -105,5 +115,6 @@ export function getAllMetadata(): Metadata {
     emotions: scanEmotions(),
     animations: ANIMATIONS,
     visualTypes: VISUAL_TYPES,
+    contentImages: getContentImages(),
   };
 }

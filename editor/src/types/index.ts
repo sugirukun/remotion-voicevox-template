@@ -52,6 +52,7 @@ export interface Metadata {
   emotions: Record<string, string[]>;
   animations: string[];
   visualTypes: string[];
+  contentImages: string[];
 }
 
 // video-settings.yaml の型定義

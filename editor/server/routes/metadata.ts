@@ -3,6 +3,7 @@ import {
   getCharacters,
   getEmotions,
   getAnimations,
+  getContentImages,
   getAllMetadata,
 } from '../services/metadataService.js';
 
@@ -50,5 +51,15 @@ metadataRouter.get('/animations', (_req: Request, res: Response) => {
   } catch (error) {
     console.error('Error getting animations:', error);
     res.status(500).json({ error: 'Failed to get animations' });
+  }
+});
+
+// GET /api/metadata/content-images - List images in public/content/
+metadataRouter.get('/content-images', (_req: Request, res: Response) => {
+  try {
+    res.json(getContentImages());
+  } catch (error) {
+    console.error('Error getting content images:', error);
+    res.status(500).json({ error: 'Failed to get content images' });
   }
 });

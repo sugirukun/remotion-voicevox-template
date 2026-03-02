@@ -228,13 +228,33 @@ export function ScriptEditor({
             {formData.visual?.type === 'image' && (
               <div className="mt-2">
                 <label className="block text-xs text-gray-500 mb-1">Image Source</label>
-                <input
-                  type="text"
-                  value={formData.visual?.src || ''}
-                  onChange={(e) => handleVisualChange('src', e.target.value)}
-                  placeholder="filename.png (in public/content/)"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                />
+                {metadata.contentImages && metadata.contentImages.length > 0 ? (
+                  <select
+                    value={formData.visual?.src || ''}
+                    onChange={(e) => handleVisualChange('src', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  >
+                    <option value="">-- 画像を選択 --</option>
+                    {metadata.contentImages.map((img) => (
+                      <option key={img} value={img}>{img}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    value={formData.visual?.src || ''}
+                    onChange={(e) => handleVisualChange('src', e.target.value)}
+                    placeholder="filename.png (in public/content/)"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  />
+                )}
+                {formData.visual?.src && (
+                  <img
+                    src={`/static/content/${formData.visual.src}`}
+                    alt="preview"
+                    className="mt-2 max-h-32 rounded border border-gray-200 object-contain"
+                  />
+                )}
               </div>
             )}
 

@@ -84,7 +84,7 @@ export const scriptData: ScriptLine[] = [
     "emotion": "happy",
     "visual": {
       "type": "text",
-      "text": "アプリは全て無料！\n外出先からMac miniをリモート\niPadとiPhone で実現！",
+      "text": "外出先からMac miniをリモート\niPadとiPhone で実現！",
       "fontSize": 90,
       "color": "#ffffff",
       "animation": "zoomIn"
@@ -107,7 +107,7 @@ export const scriptData: ScriptLine[] = [
     "id": 3,
     "character": "zundamon",
     "text": "そうなのだ！テールスケールとラストデスクを使えば、モバイル回線でも安全に接続できるのだ！",
-    "displayText": "そうなのだ！TailscaleとRustDeskを使えば、モバイル回線でも安全に接続できるのだ！",
+    "displayText": "そうなのだ！Tailscale（無料）とRustDesk（無料）\nを使えば、モバイル回線でも安全に接続できるのだ！",
     "scene": 1,
     "pauseAfter": 20,
     "emotion": "happy",
@@ -127,6 +127,7 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "fadeIn"
     },
+    "displayText": "まず全体の構成を説明するのだ！",
     "voiceFile": "04_zundamon.wav",
     "durationInFrames": 60
   },
@@ -176,14 +177,15 @@ export const scriptData: ScriptLine[] = [
     "scene": 3,
     "pauseAfter": 10,
     "emotion": "thinking",
+    "displayText": "何を準備すればいいの？",
     "voiceFile": "08_metan.wav",
     "durationInFrames": 60
   },
   {
     "id": 9,
     "character": "zundamon",
-    "text": "マックミニに次の３つをインストールするのだ。",
-    "displayText": "Mac miniに次の３つをインストールするのだ。",
+    "text": "まずはグーグルでジーメールアカウントを作っておく。\nそしてマックミニに次の３つをインストールするのだ。",
+    "displayText": "まずはGoogleでGmailアカウントを作っておく。\nそしてMac miniに次の３つをインストールするのだ。",
     "scene": 3,
     "pauseAfter": 15,
     "voiceFile": "09_zundamon.wav",
@@ -193,13 +195,13 @@ export const scriptData: ScriptLine[] = [
     "id": 10,
     "character": "zundamon",
     "text": "テールスケール、ラストデスク、アンフェタミンなのだ！",
-    "displayText": "Tailscale・RustDesk・Amphetamine\nの３つをインストール！",
+    "displayText": "Tailscale（無料）・RustDesk（無料）・Amphetamine（無料）\nの３つをインストール！",
     "scene": 3,
     "pauseAfter": 15,
     "visual": {
       "type": "text",
       "text": "① Tailscale をインストール\n② RustDesk をインストール\n③ Amphetamine をインストール",
-      "fontSize": 60,
+      "fontSize": 77,
       "color": "#ffffff",
       "animation": "fadeIn"
     },
@@ -288,6 +290,11 @@ export const scriptData: ScriptLine[] = [
     "scene": 3,
     "pauseAfter": 15,
     "displayText": "これね。RustDeskもAmphetamineもここに表示されていたらOKね。",
+    "visual": {
+      "type": "image",
+      "src": "TailscaleIP.png",
+      "animation": "fadeIn"
+    },
     "voiceFile": "16_metan.wav",
     "durationInFrames": 60
   },
@@ -315,6 +322,10 @@ export const scriptData: ScriptLine[] = [
     "scene": 4,
     "pauseAfter": 15,
     "displayText": "iPhoneにも同じようにTailscaleのアプリはインストールしておくのだ。",
+    "visual": {
+      "type": "image",
+      "src": "tailscaleアイコン.PNG"
+    },
     "voiceFile": "18_zundamon.wav",
     "durationInFrames": 60
   },
@@ -335,6 +346,10 @@ export const scriptData: ScriptLine[] = [
     "displayText": "STEP 2！Tailscaleアプリを開いてConnectボタンをタップするのだ！Connectedになるまで待つのだ！",
     "scene": 4,
     "pauseAfter": 10,
+    "visual": {
+      "type": "image",
+      "src": "tailscale画面.PNG"
+    },
     "voiceFile": "20_zundamon.wav",
     "durationInFrames": 60
   },
@@ -346,31 +361,37 @@ export const scriptData: ScriptLine[] = [
     "scene": 4,
     "pauseAfter": 10,
     "emotion": "thinking",
+    "visual": {
+      "type": "image",
+      "src": "VPN.jpeg"
+    },
     "voiceFile": "21_metan.wav",
     "durationInFrames": 60
   },
   {
     "id": 22,
     "character": "zundamon",
-    "text": "ステップ3！設定のインターネット共有から\nほかの人の接続を許可をオンにするのだ！\nこれでアイパッドにテザリングできるのだ！",
+    "text": "ステップ3！設定のインターネット共有からほかの人の接続を許可をオンにするのだ！これでアイパッドにテザリングできるのだ！",
     "scene": 4,
     "pauseAfter": 20,
+    "visual": {
+      "type": "image",
+      "src": "テザリング1.jpeg"
+    },
+    "displayText": "ステップ3！設定のインターネット共有からほかの人の接続を許可をオンにするのだ！これでiPadにテザリングできるのだ！",
     "voiceFile": "22_zundamon.wav",
     "durationInFrames": 60
   },
   {
     "id": 23,
     "character": "zundamon",
-    "text": "次はアイパッドの手順なのだ！",
-    "displayText": "次はiPadの手順なのだ！",
-    "scene": 5,
-    "pauseAfter": 10,
+    "text": "ここもおん",
+    "scene": 4,
+    "pauseAfter": 15,
+    "displayText": "ここもオン！",
     "visual": {
-      "type": "text",
-      "text": "【iPad】\n外出先での手順",
-      "fontSize": 80,
-      "color": "#ffffff",
-      "animation": "slideUp"
+      "type": "image",
+      "src": "テザリング2.PNG"
     },
     "voiceFile": "23_zundamon.wav",
     "durationInFrames": 60
@@ -378,67 +399,98 @@ export const scriptData: ScriptLine[] = [
   {
     "id": 24,
     "character": "zundamon",
-    "text": "ステップ1！設定のワイファイからアイフォンの名前を選んで接続するのだ！",
-    "displayText": "STEP 1！設定のWi-FiからiPhoneの名前を選んで接続するのだ！",
+    "text": "次はアイパッドの手順なのだ！アイパッドもテイルスケールをインストールしておくのだ",
+    "displayText": "次はiPadの手順なのだ！\niPadもTailscale をインストールしておくのだ",
     "scene": 5,
     "pauseAfter": 10,
+    "visual": {
+      "type": "image",
+      "text": "【iPad】\n外出先での手順",
+      "fontSize": 80,
+      "color": "#ffffff",
+      "animation": "slideUp",
+      "src": "ipad tailscale.jpg"
+    },
     "voiceFile": "24_zundamon.wav",
     "durationInFrames": 60
   },
   {
     "id": 25,
+    "character": "zundamon",
+    "text": "ステップ1！設定のワイファイからアイフォンの名前を選んで接続するのだ！",
+    "displayText": "STEP 1！設定のWi-FiからiPhoneの名前を選んで接続するのだ！",
+    "scene": 5,
+    "pauseAfter": 10,
+    "visual": {
+      "type": "image",
+      "src": "wifi1.PNG"
+    },
+    "voiceFile": "25_zundamon.wav",
+    "durationInFrames": 60
+  },
+  {
+    "id": 26,
     "character": "metan",
     "text": "テザリングワイファイのパスワードはアイフォンで自分で作成して、最初にアイパッドにパスワードを入力すれば次からは自動で接続されるのね。",
     "scene": 5,
     "pauseAfter": 15,
     "displayText": "テザリングWi-Fiのパスワードは\niPhoneで自分で作成して、\n最初にiPadにパスワードを入力すれば\n次からは自動で接続されるのね。",
-    "voiceFile": "25_metan.wav",
-    "durationInFrames": 60
-  },
-  {
-    "id": 26,
-    "character": "zundamon",
-    "text": "ステップ2！ラストデスクアプリを起動して、接続先入力欄にマックミニのリモートアイディを入力するのだ！",
-    "displayText": "STEP 2！RustDeskアプリを起動して、接続先入力欄にMac miniのリモートIDを入力するのだ！",
-    "scene": 5,
-    "pauseAfter": 10,
-    "voiceFile": "26_zundamon.wav",
+    "visual": {
+      "type": "image",
+      "src": "wifi2.PNG"
+    },
+    "voiceFile": "26_metan.wav",
     "durationInFrames": 60
   },
   {
     "id": 27,
+    "character": "zundamon",
+    "text": "ステップ2！アイパッドにもインストールした、ラストデスクアプリを起動して、接続先入力欄にマックミニのラストデスクに表示されたリモートアイディを入力するのだ！",
+    "displayText": "STEP 2！iPadにもインストールした、RustDeskアプリを起動して、接続先入力欄にMac miniのRustDeskに表示されたリモートIDを入力するのだ！",
+    "scene": 5,
+    "pauseAfter": 10,
+    "visual": {
+      "type": "image",
+      "src": "Rustdesk.jpg"
+    },
+    "voiceFile": "27_zundamon.wav",
+    "durationInFrames": 60
+  },
+  {
+    "id": 28,
     "character": "metan",
     "text": "固定パスワードを入力すれば接続完了ね！",
     "scene": 5,
     "pauseAfter": 10,
     "emotion": "happy",
-    "voiceFile": "27_metan.wav",
+    "displayText": "固定パスワードを入力すれば接続完了ね！",
+    "voiceFile": "28_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 28,
+    "id": 29,
     "character": "zundamon",
     "text": "テールスケールが両デバイスで接続済みなら、リモートアイディで接続しても自動的にテールスケール経由で通信されるから安全なのだ！",
     "displayText": "Tailscaleが両デバイスで接続済みなら、\nリモートIDで接続しても自動的にTailscale経由で\n通信されるから安全なのだ！",
     "scene": 5,
     "pauseAfter": 10,
     "emotion": "happy",
-    "voiceFile": "28_zundamon.wav",
+    "voiceFile": "29_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 29,
+    "id": 30,
     "character": "metan",
     "text": "マックミニの画面がアイパッドに表示されれば成功ね！",
     "displayText": "Mac miniの画面がiPadに表示されれば成功ね！",
     "scene": 5,
     "pauseAfter": 20,
     "emotion": "happy",
-    "voiceFile": "29_metan.wav",
+    "voiceFile": "30_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 30,
+    "id": 31,
     "character": "zundamon",
     "text": "さらにアイフォンをコントローラーとして使う方法も紹介するのだ！ターミウスというアプリを使うのだ！",
     "displayText": "さらにiPhoneをコントローラーとして使う方法も紹介するのだ！Termiusというアプリを使うのだ！",
@@ -451,33 +503,33 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "slideUp"
     },
-    "voiceFile": "30_zundamon.wav",
+    "voiceFile": "31_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 31,
+    "id": 32,
     "character": "metan",
     "text": "ターミウスってなに？",
     "displayText": "Termiusってなに？",
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "thinking",
-    "voiceFile": "31_metan.wav",
+    "voiceFile": "32_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 32,
+    "id": 33,
     "character": "zundamon",
     "text": "アイフォンで使えるエスエスエイチクライアントなのだ！マックミニにターミナルでリモート接続できるアプリなのだ！",
     "displayText": "iPhoneで使えるSSHクライアントなのだ！\nMac miniにターミナルでリモート接続できるアプリなのだ！",
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "happy",
-    "voiceFile": "32_zundamon.wav",
+    "voiceFile": "33_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 33,
+    "id": 34,
     "character": "zundamon",
     "text": "アプリストアからターミウスをインストールして、ホスト設定にマックミニのテールスケールアドレスを登録するのだ！",
     "displayText": "App StoreからTermiusをインストールして、\nホスト設定にMac miniのTailscaleアドレスを登録するのだ！",
@@ -490,24 +542,25 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "fadeIn"
     },
-    "voiceFile": "33_zundamon.wav",
+    "voiceFile": "34_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 34,
+    "id": 35,
     "character": "metan",
     "text": "接続できたらどうするの？",
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "thinking",
-    "voiceFile": "34_metan.wav",
+    "displayText": "接続できたらどうするの？",
+    "voiceFile": "35_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 35,
+    "id": 36,
     "character": "zundamon",
-    "text": "ターミナルでクロードと入力してクロードコードを起動するのだ！それだけなのだ！",
-    "displayText": "ターミナルで「claude」と入力してClaude Codeを起動するのだ！それだけなのだ！",
+    "text": "ターミナルでクロードと入力してクロードコードを起動するのだ！それだけなのだ！ただしクロードコードはアンソロピックのクロードのサブスクを契約していないと使えないのだ。",
+    "displayText": "ターミナルで「claude」と入力してClaude Codeを起動するのだ！それだけなのだ！※2026/03/01　現在　別途claudeのサブスク契約は必要となります！！",
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "happy",
@@ -518,21 +571,22 @@ export const scriptData: ScriptLine[] = [
       "color": "#00ff88",
       "animation": "fadeIn"
     },
-    "voiceFile": "35_zundamon.wav",
+    "voiceFile": "36_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 36,
+    "id": 37,
     "character": "metan",
     "text": "起動したらどうやって指示を出すの？",
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "thinking",
-    "voiceFile": "36_metan.wav",
+    "displayText": "接続できたらどうするの？",
+    "voiceFile": "37_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 37,
+    "id": 38,
     "character": "zundamon",
     "text": "アイフォンのキーボードの音声入力ボタンをタップして、しゃべるだけなのだ！日本語でもちゃんと認識されるのだ！",
     "displayText": "iPhoneのキーボードの音声入力ボタンをタップして、\nしゃべるだけなのだ！日本語でもちゃんと認識されるのだ！",
@@ -546,11 +600,11 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "fadeIn"
     },
-    "voiceFile": "37_zundamon.wav",
+    "voiceFile": "38_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 38,
+    "id": 39,
     "character": "zundamon",
     "text": "アイパッドがモニター代わり、アイフォンがキーボード代わりなのだ！音声入力で完全ハンズフリーのコーディングが実現するのだ！",
     "displayText": "iPadがモニター代わり、\niPhoneがキーボード代わりなのだ！\n音声入力で完全ハンズフリーの\nコーディングが実現するのだ！",
@@ -564,22 +618,22 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "zoomIn"
     },
-    "voiceFile": "38_zundamon.wav",
+    "voiceFile": "39_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 39,
+    "id": 40,
     "character": "metan",
     "text": "キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！",
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "surprised",
     "displayText": "キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！",
-    "voiceFile": "39_metan.wav",
+    "voiceFile": "40_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 40,
+    "id": 41,
     "character": "zundamon",
     "text": "これで外出先からアイパッドとアイフォンでマックミニをフル活用できるのだ！",
     "displayText": "これで外出先からiPadとiPhoneでMac miniをフル活用できるのだ！",
@@ -593,68 +647,70 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "zoomIn"
     },
-    "voiceFile": "40_zundamon.wav",
+    "voiceFile": "41_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 41,
+    "id": 42,
     "character": "metan",
     "text": "カフェや図書館でも、自宅のマックミニで本格的な作業ができるわね！",
     "displayText": "カフェや図書館でも、自宅のMac miniで本格的な作業ができるわね！",
     "scene": 8,
     "pauseAfter": 10,
     "emotion": "happy",
-    "voiceFile": "41_metan.wav",
+    "voiceFile": "42_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 42,
+    "id": 43,
     "character": "zundamon",
     "text": "さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。",
     "scene": 8,
     "pauseAfter": 15,
     "displayText": "さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。",
-    "voiceFile": "42_zundamon.wav",
+    "voiceFile": "43_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 43,
+    "id": 44,
     "character": "metan",
     "text": "確かに、ちょっと危ない人に見られるわね。",
     "scene": 8,
     "pauseAfter": 15,
     "displayText": "確かに、ちょっと危ない人に見られるわね。",
-    "voiceFile": "43_metan.wav",
+    "voiceFile": "44_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 44,
+    "id": 45,
     "character": "zundamon",
     "text": "簡単な説明だけどこれで説明はおわりなのだ。家で眠っているアイパッドがあれば試して欲しいのだ。それじゃあバイバイなのだ。",
     "scene": 8,
     "pauseAfter": 15,
     "displayText": "簡単な説明だけどこれで説明はおわりなのだ。\n家で眠っているiPadがあれば試して欲しいのだ。\nそれじゃあバイバイなのだ。",
-    "voiceFile": "44_zundamon.wav",
+    "voiceFile": "45_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 45,
+    "id": 46,
     "character": "metan",
     "text": "バイバイ！",
     "scene": 8,
     "pauseAfter": 0,
     "emotion": "happy",
-    "voiceFile": "45_metan.wav",
+    "displayText": "バイバイ！",
+    "voiceFile": "46_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 46,
+    "id": 47,
     "character": "zundamon",
     "text": "バイバイなのだ！",
     "scene": 8,
     "pauseAfter": 60,
     "emotion": "happy",
-    "voiceFile": "46_zundamon.wav",
+    "displayText": "バイバイなのだ！",
+    "voiceFile": "47_zundamon.wav",
     "durationInFrames": 60
   }
 ];
