@@ -352,6 +352,9 @@
   scene: 6
   pauseAfter: 10
   emotion: thinking
+  visual:
+    type: image
+    src: TermiusIcon.jpeg
 - id: 33
   character: zundamon
   text: アイフォンで使えるエスエスエイチクライアントなのだ！マックミニにターミナルでリモート接続できるアプリなのだ！
@@ -363,10 +366,11 @@
   emotion: happy
 - id: 34
   character: zundamon
-  text: アプリストアからターミウスをインストールして、ホスト設定にマックミニのテールスケールアドレスを登録するのだ！
+  text: アプリストアからターミウスをインストールして、ホスト設定にマックミニのテールスケールアドレスを登録するのだ！ユーザー名はマックミニのもの。パスワードもマックミニにログインするパスワードでいいのだ。
   displayText: |-
     App StoreからTermiusをインストールして、
     ホスト設定にMac miniのTailscaleアドレスを登録するのだ！
+    ユーザー名はMacminiのもの。パスワードもMacminiにログインするパスワードでいいのだ。
   scene: 6
   pauseAfter: 15
   visual:
@@ -374,7 +378,7 @@
     text: |-
       Termius ホスト設定
       ・ホスト: 100.x.x.x
-      ・ユーザー名・パスワードを入力
+      ・Macminiのユーザー名・Macminiのパスワードを入力
     fontSize: 52
     color: "#ffffff"
     animation: fadeIn
@@ -393,11 +397,12 @@
   pauseAfter: 10
   emotion: happy
   visual:
-    type: text
+    type: image
     text: $ claude
     fontSize: 72
     color: "#00ff88"
     animation: fadeIn
+    src: Termius最初.png
 - id: 37
   character: metan
   text: 起動したらどうやって指示を出すの？
@@ -406,6 +411,24 @@
   emotion: thinking
   displayText: 接続できたらどうするの？
 - id: 38
+  character: zundamon
+  text: スラッシュ、ログインと入力して
+  scene: 6
+  pauseAfter: 15
+  displayText: /login と入力して
+  visual:
+    type: image
+    src: termiusIMG_5811のコピー.PNG
+- id: 39
+  character: zundamon
+  text: するとマックミニに認証画面が出るから認証するのだ。
+  scene: 6
+  pauseAfter: 15
+  displayText: するとMac miniに認証画面が出るから認証するのだ。
+  visual:
+    type: image
+    src: claude loginn.png
+- id: 40
   character: zundamon
   text: アイフォンのキーボードの音声入力ボタンをタップして、しゃべるだけなのだ！日本語でもちゃんと認識されるのだ！
   displayText: |-
@@ -422,7 +445,7 @@
     fontSize: 70
     color: "#ffffff"
     animation: fadeIn
-- id: 39
+- id: 41
   character: zundamon
   text: アイパッドがモニター代わり、アイフォンがキーボード代わりなのだ！音声入力で完全ハンズフリーのコーディングが実現するのだ！
   displayText: |-
@@ -442,14 +465,14 @@
     fontSize: 60
     color: "#ffffff"
     animation: zoomIn
-- id: 40
+- id: 42
   character: metan
   text: キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！
   scene: 6
   pauseAfter: 10
   emotion: surprised
   displayText: キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！
-- id: 41
+- id: 43
   character: zundamon
   text: これで外出先からアイパッドとアイフォンでマックミニをフル活用できるのだ！
   displayText: これで外出先からiPadとiPhoneでMac miniをフル活用できるのだ！
@@ -465,26 +488,26 @@
     fontSize: 72
     color: "#ffffff"
     animation: zoomIn
-- id: 42
+- id: 44
   character: metan
   text: カフェや図書館でも、自宅のマックミニで本格的な作業ができるわね！
   displayText: カフェや図書館でも、自宅のMac miniで本格的な作業ができるわね！
   scene: 8
   pauseAfter: 10
   emotion: happy
-- id: 43
+- id: 45
   character: zundamon
   text: さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。
   scene: 8
   pauseAfter: 15
   displayText: さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。
-- id: 44
+- id: 46
   character: metan
   text: 確かに、ちょっと危ない人に見られるわね。
   scene: 8
   pauseAfter: 15
   displayText: 確かに、ちょっと危ない人に見られるわね。
-- id: 45
+- id: 47
   character: zundamon
   text: 簡単な説明だけどこれで説明はおわりなのだ。家で眠っているアイパッドがあれば試して欲しいのだ。それじゃあバイバイなのだ。
   scene: 8
@@ -493,14 +516,14 @@
     簡単な説明だけどこれで説明はおわりなのだ。
     家で眠っているiPadがあれば試して欲しいのだ。
     それじゃあバイバイなのだ。
-- id: 46
+- id: 48
   character: metan
   text: バイバイ！
   scene: 8
   pauseAfter: 0
   emotion: happy
   displayText: バイバイ！
-- id: 47
+- id: 49
   character: zundamon
   text: バイバイなのだ！
   scene: 8

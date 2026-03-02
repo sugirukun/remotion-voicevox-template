@@ -141,6 +141,39 @@ Claude Codeに話しかけるだけ：
 | `npm run voices` | 音声生成 |
 | `npm run build` | 動画出力（out/video.mp4） |
 | `npm run init` | 新規プロジェクト初期化 |
+| `npm run editor` | GUIエディター起動（http://localhost:3001） |
+| `npm run editor:install` | GUIエディターの依存関係インストール（初回のみ） |
+
+---
+
+## GUIエディター
+
+ブラウザからスクリプトをリアルタイム編集できます。
+
+```bash
+npm run editor:install  # 初回のみ
+npm run editor          # 起動
+```
+
+- **エディター**: http://localhost:3001
+- **API**: http://localhost:3002
+
+### Script画面の機能
+
+| 機能 | 説明 |
+|------|------|
+| 行の追加 | 各行の **+** ボタンで直後に挿入（全ID自動再採番） |
+| 行の編集 | 行クリックで編集モーダルを開く |
+| 行の削除 | Del ボタンで削除 |
+| タイム列 | 各行の開始→終了時刻を秒単位で表示 |
+| 間（秒） | pauseAfter を秒単位で入力（フレーム換算は自動） |
+| 画像選択 | `public/content/` 内の画像をドロップダウンで選択＋プレビュー表示 |
+| 自動sync | 保存時に `sync-script` を自動実行 → Remotionプレビューに即反映 |
+
+### 行の途中に挿入する
+
+各行の右端にある **+** ボタンをクリックすると、その行の直後に新しい行を挿入できます。
+全IDは挿入後に自動で再採番されます。
 
 ---
 
@@ -180,6 +213,39 @@ character:
 colors:
   zundamon: "#228B22"
   metan: "#FF1493"
+```
+
+---
+
+## 字幕・ビジュアル機能
+
+### 字幕の改行・切り替え
+
+`displayText` に `\n` を入れると、セリフの再生時間に合わせて字幕が段階的に切り替わります。
+
+```yaml
+# config/script.yaml
+- id: 5
+  text: "まず設定画面を開いて、次にVPNをオンにするのだ！"
+  displayText: "まず設定画面を開いて\n次にVPNをオンにするのだ！"
+```
+
+セリフ前半で1行目、後半で2行目が表示されます。
+
+### ビジュアルの持続表示
+
+`visual` を設定した行が終わっても、次に別の `visual` が来るまで画像・テキストは表示され続けます（`lastVisual`）。
+セリフ数行にわたって同じ画像を表示したい場合、最初の行にだけ `visual` を設定すれば十分です。
+
+### 画像の表示
+
+`public/content/` 内の画像を黒板エリア全体に `contain` で表示します。
+
+```yaml
+visual:
+  type: image
+  src: screenshot.png   # public/content/ 内のファイル名
+  animation: fadeIn
 ```
 
 ---

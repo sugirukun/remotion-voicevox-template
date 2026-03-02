@@ -514,6 +514,10 @@ export const scriptData: ScriptLine[] = [
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "thinking",
+    "visual": {
+      "type": "image",
+      "src": "TermiusIcon.jpeg"
+    },
     "voiceFile": "32_metan.wav",
     "durationInFrames": 60
   },
@@ -531,13 +535,13 @@ export const scriptData: ScriptLine[] = [
   {
     "id": 34,
     "character": "zundamon",
-    "text": "アプリストアからターミウスをインストールして、ホスト設定にマックミニのテールスケールアドレスを登録するのだ！",
-    "displayText": "App StoreからTermiusをインストールして、\nホスト設定にMac miniのTailscaleアドレスを登録するのだ！",
+    "text": "アプリストアからターミウスをインストールして、ホスト設定にマックミニのテールスケールアドレスを登録するのだ！ユーザー名はマックミニのもの。パスワードもマックミニにログインするパスワードでいいのだ。",
+    "displayText": "App StoreからTermiusをインストールして、\nホスト設定にMac miniのTailscaleアドレスを登録するのだ！\nユーザー名はMacminiのもの。パスワードもMacminiにログインするパスワードでいいのだ。",
     "scene": 6,
     "pauseAfter": 15,
     "visual": {
       "type": "text",
-      "text": "Termius ホスト設定\n・ホスト: 100.x.x.x\n・ユーザー名・パスワードを入力",
+      "text": "Termius ホスト設定\n・ホスト: 100.x.x.x\n・Macminiのユーザー名・Macminiのパスワードを入力",
       "fontSize": 52,
       "color": "#ffffff",
       "animation": "fadeIn"
@@ -565,11 +569,12 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "emotion": "happy",
     "visual": {
-      "type": "text",
+      "type": "image",
       "text": "$ claude",
       "fontSize": 72,
       "color": "#00ff88",
-      "animation": "fadeIn"
+      "animation": "fadeIn",
+      "src": "Termius最初.png"
     },
     "voiceFile": "36_zundamon.wav",
     "durationInFrames": 60
@@ -588,6 +593,34 @@ export const scriptData: ScriptLine[] = [
   {
     "id": 38,
     "character": "zundamon",
+    "text": "スラッシュ、ログインと入力して",
+    "scene": 6,
+    "pauseAfter": 15,
+    "displayText": "/login と入力して",
+    "visual": {
+      "type": "image",
+      "src": "termiusIMG_5811のコピー.PNG"
+    },
+    "voiceFile": "38_zundamon.wav",
+    "durationInFrames": 60
+  },
+  {
+    "id": 39,
+    "character": "zundamon",
+    "text": "するとマックミニに認証画面が出るから認証するのだ。",
+    "scene": 6,
+    "pauseAfter": 15,
+    "displayText": "するとMac miniに認証画面が出るから認証するのだ。",
+    "visual": {
+      "type": "image",
+      "src": "claude loginn.png"
+    },
+    "voiceFile": "39_zundamon.wav",
+    "durationInFrames": 60
+  },
+  {
+    "id": 40,
+    "character": "zundamon",
     "text": "アイフォンのキーボードの音声入力ボタンをタップして、しゃべるだけなのだ！日本語でもちゃんと認識されるのだ！",
     "displayText": "iPhoneのキーボードの音声入力ボタンをタップして、\nしゃべるだけなのだ！日本語でもちゃんと認識されるのだ！",
     "scene": 6,
@@ -600,11 +633,11 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "fadeIn"
     },
-    "voiceFile": "38_zundamon.wav",
+    "voiceFile": "40_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 39,
+    "id": 41,
     "character": "zundamon",
     "text": "アイパッドがモニター代わり、アイフォンがキーボード代わりなのだ！音声入力で完全ハンズフリーのコーディングが実現するのだ！",
     "displayText": "iPadがモニター代わり、\niPhoneがキーボード代わりなのだ！\n音声入力で完全ハンズフリーの\nコーディングが実現するのだ！",
@@ -618,22 +651,22 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "zoomIn"
     },
-    "voiceFile": "39_zundamon.wav",
+    "voiceFile": "41_zundamon.wav",
     "durationInFrames": 60
   },
   {
-    "id": 40,
+    "id": 42,
     "character": "metan",
     "text": "キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！",
     "scene": 6,
     "pauseAfter": 10,
     "emotion": "surprised",
     "displayText": "キーボードなしでコーディングやファイル操作、ブラウザ操作ができちゃうのね！",
-    "voiceFile": "40_metan.wav",
+    "voiceFile": "42_metan.wav",
     "durationInFrames": 60
   },
   {
-    "id": 41,
+    "id": 43,
     "character": "zundamon",
     "text": "これで外出先からアイパッドとアイフォンでマックミニをフル活用できるのだ！",
     "displayText": "これで外出先からiPadとiPhoneでMac miniをフル活用できるのだ！",
@@ -647,70 +680,70 @@ export const scriptData: ScriptLine[] = [
       "color": "#ffffff",
       "animation": "zoomIn"
     },
-    "voiceFile": "41_zundamon.wav",
-    "durationInFrames": 60
-  },
-  {
-    "id": 42,
-    "character": "metan",
-    "text": "カフェや図書館でも、自宅のマックミニで本格的な作業ができるわね！",
-    "displayText": "カフェや図書館でも、自宅のMac miniで本格的な作業ができるわね！",
-    "scene": 8,
-    "pauseAfter": 10,
-    "emotion": "happy",
-    "voiceFile": "42_metan.wav",
-    "durationInFrames": 60
-  },
-  {
-    "id": 43,
-    "character": "zundamon",
-    "text": "さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。",
-    "scene": 8,
-    "pauseAfter": 15,
-    "displayText": "さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。",
     "voiceFile": "43_zundamon.wav",
     "durationInFrames": 60
   },
   {
     "id": 44,
     "character": "metan",
-    "text": "確かに、ちょっと危ない人に見られるわね。",
+    "text": "カフェや図書館でも、自宅のマックミニで本格的な作業ができるわね！",
+    "displayText": "カフェや図書館でも、自宅のMac miniで本格的な作業ができるわね！",
     "scene": 8,
-    "pauseAfter": 15,
-    "displayText": "確かに、ちょっと危ない人に見られるわね。",
+    "pauseAfter": 10,
+    "emotion": "happy",
     "voiceFile": "44_metan.wav",
     "durationInFrames": 60
   },
   {
     "id": 45,
     "character": "zundamon",
-    "text": "簡単な説明だけどこれで説明はおわりなのだ。家で眠っているアイパッドがあれば試して欲しいのだ。それじゃあバイバイなのだ。",
+    "text": "さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。",
     "scene": 8,
     "pauseAfter": 15,
-    "displayText": "簡単な説明だけどこれで説明はおわりなのだ。\n家で眠っているiPadがあれば試して欲しいのだ。\nそれじゃあバイバイなのだ。",
+    "displayText": "さずがにカフェや図書館ではキーボードを使った方がいいと思うのだ。",
     "voiceFile": "45_zundamon.wav",
     "durationInFrames": 60
   },
   {
     "id": 46,
     "character": "metan",
-    "text": "バイバイ！",
+    "text": "確かに、ちょっと危ない人に見られるわね。",
     "scene": 8,
-    "pauseAfter": 0,
-    "emotion": "happy",
-    "displayText": "バイバイ！",
+    "pauseAfter": 15,
+    "displayText": "確かに、ちょっと危ない人に見られるわね。",
     "voiceFile": "46_metan.wav",
     "durationInFrames": 60
   },
   {
     "id": 47,
     "character": "zundamon",
+    "text": "簡単な説明だけどこれで説明はおわりなのだ。家で眠っているアイパッドがあれば試して欲しいのだ。それじゃあバイバイなのだ。",
+    "scene": 8,
+    "pauseAfter": 15,
+    "displayText": "簡単な説明だけどこれで説明はおわりなのだ。\n家で眠っているiPadがあれば試して欲しいのだ。\nそれじゃあバイバイなのだ。",
+    "voiceFile": "47_zundamon.wav",
+    "durationInFrames": 60
+  },
+  {
+    "id": 48,
+    "character": "metan",
+    "text": "バイバイ！",
+    "scene": 8,
+    "pauseAfter": 0,
+    "emotion": "happy",
+    "displayText": "バイバイ！",
+    "voiceFile": "48_metan.wav",
+    "durationInFrames": 60
+  },
+  {
+    "id": 49,
+    "character": "zundamon",
     "text": "バイバイなのだ！",
     "scene": 8,
     "pauseAfter": 60,
     "emotion": "happy",
     "displayText": "バイバイなのだ！",
-    "voiceFile": "47_zundamon.wav",
+    "voiceFile": "49_zundamon.wav",
     "durationInFrames": 60
   }
 ];
