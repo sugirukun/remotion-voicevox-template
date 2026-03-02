@@ -268,35 +268,67 @@ visual:
 
 ## 新しい動画を作る流れ
 
-このテンプレートを使って新しい動画を作るときの手順です。
+### ブランチで作る（推奨）
+
+動画ごとにブランチを切ると、**動画を作りながらテンプレートも育てられます**。
 
 ```bash
-# 1. テンプレートをclone
-git clone https://github.com/sugirukun/remotion-voicevox-template.git 新しい動画名
-cd 新しい動画名
+# 1. このリポジトリをclone（初回のみ）
+git clone https://github.com/sugirukun/remotion-voicevox-template.git
+cd remotion-voicevox-template
 npm install
+npm run editor:install
 ```
 
 ```bash
-# 2. セリフを作成（Claude Codeまたは手動）
-#    config/script.yaml または src/data/script.ts を編集
+# 2. 動画ごとにブランチを切る
+git checkout master
+git checkout -b my-new-video
 ```
 
 ```bash
-# 3. VOICEVOXを起動して音声生成
-npm run voices
+# 3. セリフ・画像を追加して動画を作る
+npm run editor   # GUIエディターで編集
+npm run voices   # 音声生成
+npm start        # プレビュー確認
+npm run build    # 動画出力
 ```
 
 ```bash
-# 4. プレビュー確認
-npm start
-# → http://localhost:3000 で確認
+# 4. 動画完成後、テンプレートへ機能を還元する
+#    （新機能・エディター改善などをmasterにマージ）
+git checkout master
+git merge my-new-video --no-ff
+#    コンテンツ（セリフ・画像）はリセットしてmasterをクリーンに保つ
 ```
 
+**ブランチ戦略のイメージ：**
+
+```
+master（テンプレート）─────────────────────────► 育ち続ける
+        │                          ↑
+        ├─► video-1ブランチ ───────┘ 機能だけ還元
+        │
+        ├─► video-2ブランチ ───────┘ 機能だけ還元
+        │
+        └─► video-3ブランチ（制作中）
+```
+
+動画を作るたびにテンプレートが進化していく形です。
+
+---
+
+### シンプルに使う場合
+
+毎回cloneして独立したフォルダで作業することもできます。
+
 ```bash
-# 5. 動画出力
-npm run build
-# → out/video.mp4 が生成される
+git clone https://github.com/sugirukun/remotion-voicevox-template.git 動画タイトル
+cd 動画タイトル
+npm install && npm run editor:install
+npm run editor   # GUIエディターでセリフ編集
+npm run voices   # 音声生成
+npm run build    # 動画出力（out/video.mp4）
 ```
 
 キャラクター画像（ずんだもん・めたん・つむぎ）と設定は最初から含まれているので、セリフを書くだけで動画が作れます。
