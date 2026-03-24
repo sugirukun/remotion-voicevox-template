@@ -215,19 +215,29 @@ export const Main: React.FC = () => {
         frame={frame}
         fps={fps}
         visual={currentLine?.visual ?? lastVisual}
+        lineStartFrame={currentLineStartFrame}
       />
 
-      {/* キャラクター */}
-      <Character
-        characterId="metan"
-        isSpeaking={isSpeaking && currentLine?.character === "metan"}
-        emotion={currentLine?.character === "metan" ? currentLine.emotion : "normal"}
-      />
-      <Character
-        characterId="zundamon"
-        isSpeaking={isSpeaking && currentLine?.character === "zundamon"}
-        emotion={currentLine?.character === "zundamon" ? currentLine.emotion : "normal"}
-      />
+      {/* キャラクター（動画再生中は下帯に縮小移動） */}
+      {(() => {
+        const isVideoMode = (currentLine?.visual ?? lastVisual)?.type === 'video';
+        return (
+          <>
+            <Character
+              characterId="metan"
+              isSpeaking={isSpeaking && currentLine?.character === "metan"}
+              emotion={currentLine?.character === "metan" ? currentLine.emotion : "normal"}
+              videoMode={isVideoMode}
+            />
+            <Character
+              characterId="zundamon"
+              isSpeaking={isSpeaking && currentLine?.character === "zundamon"}
+              emotion={currentLine?.character === "zundamon" ? currentLine.emotion : "normal"}
+              videoMode={isVideoMode}
+            />
+          </>
+        );
+      })()}
 
       {/* 字幕 */}
       {currentLine && (

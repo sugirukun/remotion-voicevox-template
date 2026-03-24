@@ -1,4 +1,4 @@
-import { Img, staticFile, interpolate, spring, useVideoConfig } from "remotion";
+import { Img, OffthreadVideo, Sequence, staticFile, interpolate, spring, useVideoConfig } from "remotion";
 import { COLORS } from "../config";
 import { VisualContent, AnimationType } from "../data/script";
 
@@ -8,6 +8,7 @@ interface SceneVisualsProps {
   frame: number;
   fps: number;
   visual?: VisualContent;
+  lineStartFrame?: number;
 }
 
 // アニメーションスタイルを計算
@@ -68,6 +69,7 @@ export const SceneVisuals: React.FC<SceneVisualsProps> = ({
   frame,
   fps,
   visual,
+  lineStartFrame = 0,
 }) => {
   const animationStyle = useAnimationStyle(frame, fps, visual?.animation);
 
@@ -112,6 +114,88 @@ export const SceneVisuals: React.FC<SceneVisualsProps> = ({
             objectFit: "contain",
           }}
         />
+      </div>
+    );
+  }
+
+  // 動画表示（複数クリップ対応）
+  if (visual.type === "video") {
+    // videos配列 or 後方互換 src を統一して扱う
+    const clips = visual.videos && visual.videos.length > 0
+      ? visual.videos
+      : visual.src
+        ? [{ src: visual.src, durationSec: 999999 }]
+        : [];
+
+    if (clips.length === 0) return null;
+
+    const videoRelativeSec = (frame - lineStartFrame) / fps;
+
+    // アクティブなクリップを特定
+    let cumSec = 0;
+    let activeClip: { src: string; durationSec: number } | null = null;
+    let clipStartSec = 0;
+    for (const clip of clips) {
+      if (videoRelativeSec >= cumSec && videoRelativeSec < cumSec + clip.durationSec) {
+        activeClip = clip;
+        clipStartSec = cumSec;
+        break;
+      }
+      cumSec += clip.durationSec;
+    }
+
+    const activeCaption = visual.captions?.find(
+      (c) => videoRelativeSec >= c.startSec && videoRelativeSec < c.endSec
+    );
+
+    const clipStartFrame = lineStartFrame + Math.round(clipStartSec * fps);
+
+    return (
+      <div
+        style={{
+          position: "absolute",
+          top: 40,
+          left: 60,
+          right: 60,
+          bottom: 160,
+          overflow: "hidden",
+          borderRadius: 8,
+          ...animationStyle,
+        }}
+      >
+        {activeClip && (
+          <Sequence from={clipStartFrame}>
+            <OffthreadVideo
+              src={staticFile(`content/${activeClip.src}`)}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+              }}
+            />
+          </Sequence>
+        )}
+        {activeCaption && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: 12,
+              left: 16,
+              right: 16,
+              background: "rgba(0,0,0,0.65)",
+              borderRadius: 6,
+              padding: "10px 16px",
+              color: "#ffffff",
+              fontSize: 28,
+              fontWeight: "bold",
+              lineHeight: 1.5,
+              whiteSpace: "pre-wrap",
+              textAlign: "left",
+            }}
+          >
+            {activeCaption.text}
+          </div>
+        )}
       </div>
     );
   }

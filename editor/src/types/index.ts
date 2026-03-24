@@ -1,14 +1,29 @@
 // アニメーションの型定義
 export type AnimationType = "none" | "fadeIn" | "slideUp" | "slideLeft" | "zoomIn" | "bounce";
 
+// 動画字幕
+export interface VideoCaption {
+  startSec: number;
+  endSec: number;
+  text: string;
+}
+
+// 動画クリップ
+export interface VideoClip {
+  src: string;
+  durationSec: number;
+}
+
 // ビジュアルの型定義
 export interface VisualContent {
-  type: "image" | "text" | "none";
+  type: "image" | "text" | "video" | "none";
   src?: string;
+  videos?: VideoClip[];
   text?: string;
   fontSize?: number;
   color?: string;
   animation?: AnimationType;
+  captions?: VideoCaption[];
 }
 
 // 効果音の型定義
@@ -53,6 +68,7 @@ export interface Metadata {
   animations: string[];
   visualTypes: string[];
   contentImages: string[];
+  contentVideos: string[];
 }
 
 // video-settings.yaml の型定義

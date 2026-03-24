@@ -6,6 +6,7 @@ interface CharacterProps {
   characterId: CharacterId;
   isSpeaking: boolean;
   emotion?: string;
+  videoMode?: boolean;
 }
 
 // 表情に応じた画像ファイル名を取得（存在チェック付き）
@@ -42,6 +43,7 @@ export const Character: React.FC<CharacterProps> = ({
   characterId,
   isSpeaking,
   emotion = "normal",
+  videoMode = false,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -78,21 +80,29 @@ export const Character: React.FC<CharacterProps> = ({
   // 設定ファイルのuseImagesフラグをチェック
   const hasImage = SETTINGS.character.useImages;
 
+  // 動画モード時は黒板下の帯エリア（160px）に縮小して表示
+  const videoHeight = 250;
+  const normalHeight = SETTINGS.character.height;
+  const charHeight = videoMode ? videoHeight : normalHeight;
+  const videoScale = videoMode ? videoHeight / normalHeight : 1;
+
   return (
     <div
       style={{
         position: "absolute",
         bottom: 0,
-        [characterConfig.position]: slideIn,
-        transform: `translateY(${bounceY}px) scale(${scale})`,
+        [characterConfig.position]: videoMode ? 0 : slideIn,
+        transform: `translateY(${bounceY}px) scale(${videoScale * scale})`,
         transformOrigin: isLeft ? "bottom left" : "bottom right",
+        transition: "all 0.3s ease",
+        zIndex: videoMode ? 10 : 1,
       }}
     >
       {hasImage ? (
         <Img
           src={staticFile(currentImage)}
           style={{
-            height: SETTINGS.character.height,
+            height: charHeight,
             objectFit: "contain",
             transform: characterConfig.flipX ? "scaleX(-1)" : "none",
           }}

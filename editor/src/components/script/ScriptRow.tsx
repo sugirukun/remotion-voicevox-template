@@ -150,6 +150,11 @@ export function ScriptRow({ line, characters, startTime, endTime, onEdit, onDele
             📝 {line.visual.text?.split('\n')[0]}
           </span>
         )}
+        {line.visual?.type === 'video' && (
+          <span className="inline-flex items-center gap-1 bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded truncate max-w-36" title={line.visual.src}>
+            🎬 {line.visual.src}
+          </span>
+        )}
       </td>
       <td className="px-2 py-2 text-sm text-gray-400 text-right tabular-nums">
         {line.durationInFrames}

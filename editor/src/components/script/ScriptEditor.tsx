@@ -258,6 +258,100 @@ export function ScriptEditor({
               </div>
             )}
 
+            {formData.visual?.type === 'video' && (
+              <div className="mt-2 space-y-2">
+                <label className="block text-xs text-gray-500 mb-1">動画クリップ（順番に再生）</label>
+
+                {/* クリップ一覧 */}
+                {(formData.visual.videos ?? (formData.visual.src ? [{ src: formData.visual.src, durationSec: 0 }] : [])).map((clip, idx) => {
+                  const clips = formData.visual!.videos ?? (formData.visual!.src ? [{ src: formData.visual!.src, durationSec: 0 }] : []);
+                  return (
+                    <div key={idx} className="border border-gray-200 rounded-lg p-2 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-400 w-5">{idx + 1}</span>
+                        <select
+                          value={clip.src}
+                          onChange={(e) => {
+                            const newClips = clips.map((c, i) => i === idx ? { ...c, src: e.target.value } : c);
+                            handleVisualChange('videos', newClips);
+                            handleVisualChange('src', undefined);
+                          }}
+                          className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm"
+                        >
+                          <option value="">-- 動画を選択 --</option>
+                          {(metadata.contentVideos ?? []).map((v) => (
+                            <option key={v} value={v}>{v}</option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            if (!clip.src) return;
+                            const res = await fetch(`/api/metadata/video-duration?src=${encodeURIComponent(clip.src)}`);
+                            if (!res.ok) { alert('取得失敗'); return; }
+                            const { duration } = await res.json();
+                            const newClips = clips.map((c, i) => i === idx ? { ...c, durationSec: Math.round(duration * 10) / 10 } : c);
+                            handleVisualChange('videos', newClips);
+                            handleVisualChange('src', undefined);
+                          }}
+                          className="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 whitespace-nowrap"
+                        >
+                          長さ取得
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newClips = clips.filter((_, i) => i !== idx);
+                            handleVisualChange('videos', newClips.length > 0 ? newClips : []);
+                            handleVisualChange('src', undefined);
+                          }}
+                          className="px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                        >
+                          削除
+                        </button>
+                      </div>
+                      {clip.src && (
+                        <div className="text-xs text-gray-500 pl-5">
+                          {clip.durationSec > 0 ? `⏱ ${clip.durationSec}秒` : '⚠️ 「長さ取得」を押してください'}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* 追加ボタン */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const current = formData.visual!.videos ?? (formData.visual!.src ? [{ src: formData.visual!.src, durationSec: 0 }] : []);
+                    handleVisualChange('videos', [...current, { src: '', durationSec: 0 }]);
+                    handleVisualChange('src', undefined);
+                  }}
+                  className="w-full px-3 py-2 border-2 border-dashed border-purple-300 text-purple-600 text-sm rounded-lg hover:bg-purple-50"
+                >
+                  ＋ 動画を追加
+                </button>
+
+                {/* 合計長さに合わせる */}
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const clips = formData.visual!.videos ?? [];
+                    if (clips.length === 0) return;
+                    const totalSec = clips.reduce((s, c) => s + c.durationSec, 0);
+                    const speechFrames = formData.durationInFrames || 0;
+                    const pauseFrames = Math.max(0, Math.round(totalSec * FRAMES_PER_SEC) - speechFrames);
+                    setPauseSecStr((pauseFrames / FRAMES_PER_SEC).toFixed(1));
+                    handleChange('pauseAfter', pauseFrames);
+                  }}
+                  className="w-full px-3 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700"
+                >
+                  🎬 全動画の合計長さに合わせる（間を自動設定）
+                </button>
+                <p className="text-xs text-gray-400">動画ファイルを public/content/ に置いてください（.mp4 推奨）</p>
+              </div>
+            )}
+
             {formData.visual?.type === 'text' && (
               <div className="mt-2 space-y-2">
                 <div>

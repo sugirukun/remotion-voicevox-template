@@ -19,6 +19,7 @@ export interface Metadata {
   animations: string[];
   visualTypes: string[];
   contentImages: string[];
+  contentVideos: string[];
 }
 
 interface CharacterConfig {
@@ -33,7 +34,7 @@ interface CharacterConfig {
 const ANIMATIONS = ['none', 'fadeIn', 'slideUp', 'slideLeft', 'zoomIn', 'bounce'];
 
 // Visual types
-const VISUAL_TYPES = ['none', 'image', 'text'];
+const VISUAL_TYPES = ['none', 'image', 'text', 'video'];
 
 // Load characters from YAML
 function loadCharacters(): Record<string, CharacterConfig> {
@@ -105,6 +106,14 @@ export function getContentImages(): string[] {
     .sort();
 }
 
+export function getContentVideos(): string[] {
+  if (!fs.existsSync(CONTENT_DIR)) return [];
+  const VIDEO_EXTS = ['.mp4', '.mov', '.webm'];
+  return fs.readdirSync(CONTENT_DIR)
+    .filter(f => VIDEO_EXTS.includes(path.extname(f).toLowerCase()))
+    .sort();
+}
+
 export function getVisualTypes(): string[] {
   return VISUAL_TYPES;
 }
@@ -116,5 +125,6 @@ export function getAllMetadata(): Metadata {
     animations: ANIMATIONS,
     visualTypes: VISUAL_TYPES,
     contentImages: getContentImages(),
+    contentVideos: getContentVideos(),
   };
 }

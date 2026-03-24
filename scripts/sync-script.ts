@@ -142,13 +142,26 @@ function main() {
 export type AnimationType = "none" | "fadeIn" | "slideUp" | "slideLeft" | "zoomIn" | "bounce";
 
 // ビジュアルの型定義
+export interface VideoCaption {
+  startSec: number;
+  endSec: number;
+  text: string;
+}
+
+export interface VideoClip {
+  src: string;
+  durationSec: number;
+}
+
 export interface VisualContent {
-  type: "image" | "text" | "none";
+  type: "image" | "text" | "video" | "none";
   src?: string;
+  videos?: VideoClip[];
   text?: string;
   fontSize?: number;
   color?: string;
   animation?: AnimationType;
+  captions?: VideoCaption[];
 }
 
 // 効果音の型定義
