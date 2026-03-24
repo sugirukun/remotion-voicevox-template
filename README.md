@@ -13,6 +13,9 @@
 - **口パクアニメーション** - キャラクターが自然に話しているように見える
 - **表情差分対応** - happy, surprised, thinking, sad などの表情切り替え
 - **BGM・効果音対応** - 場面に合わせた音声演出
+- **動画埋め込み対応** - スクリーンレコーディングなどの動画を黒板エリアに埋め込み再生
+- **複数動画クリップ連結** - 複数の動画ファイルを1つのセリフにシームレスに繋げて再生
+- **動画内字幕** - 動画再生中に時刻指定で字幕を重ねて表示
 - **カスタマイズ可能** - YAMLファイルでフォント、色、レイアウトを簡単変更
 
 ---
@@ -168,6 +171,8 @@ npm run editor          # 起動
 | タイム列 | 各行の開始→終了時刻を秒単位で表示 |
 | 間（秒） | pauseAfter を秒単位で入力（フレーム換算は自動） |
 | 画像選択 | `public/content/` 内の画像をドロップダウンで選択＋プレビュー表示 |
+| 動画クリップ管理 | 動画ファイル（.mp4/.mov/.webm）を複数追加・並べ替え、「長さ取得」で再生時間を自動入力 |
+| 合計長さ合わせ | 「🎬 全動画の合計長さに合わせる」ボタンで pauseAfter を自動計算 |
 | 自動sync | 保存時に `sync-script` を自動実行 → Remotionプレビューに即反映 |
 
 ### 行の途中に挿入する
@@ -247,6 +252,47 @@ visual:
   src: screenshot.png   # public/content/ 内のファイル名
   animation: fadeIn
 ```
+
+### 動画の埋め込み
+
+`public/content/` に `.mp4` ファイルを置いて、`visual` で指定します。
+動画再生中はキャラクターが黒板下の余白エリアに自動で縮小移動します。
+
+```yaml
+visual:
+  type: video
+  animation: fadeIn
+  videos:
+    - src: demo1.mp4
+      durationSec: 30
+    - src: demo2.mp4
+      durationSec: 45
+```
+
+複数クリップは `videos` 配列に追加すると自動で繋がります。
+
+#### 動画内字幕
+
+動画の特定時刻に字幕を重ねて表示できます：
+
+```yaml
+visual:
+  type: video
+  videos:
+    - src: demo.mp4
+      durationSec: 60
+  captions:
+    - startSec: 0
+      endSec: 5
+      text: ここがポイントです
+    - startSec: 10
+      endSec: 20
+      text: 複数クリップの場合は\n累積秒数で指定します
+```
+
+> **エディターで設定する場合**：Visual Content タブで動画ファイルを追加 → 「長さ取得」で自動入力 → 「🎬 全動画の合計長さに合わせる」でセリフ時間を自動調整。
+
+> **変換について**：`.mov` は Chrome で再生できないため、`ffmpeg -i input.mov output.mp4` で変換してから使用してください。
 
 ---
 
