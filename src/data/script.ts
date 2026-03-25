@@ -103,7 +103,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "zoomIn"
     },
     "voiceFile": "01_zundamon.wav",
-    "durationInFrames": 53
+    "durationInFrames": 284
   },
   {
     "id": 2,
@@ -114,7 +114,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 11,
     "emotion": "surprised",
     "voiceFile": "02_metan.wav",
-    "durationInFrames": 44
+    "durationInFrames": 162
   },
   {
     "id": 3,
@@ -125,7 +125,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 20,
     "emotion": "happy",
     "voiceFile": "03_zundamon.wav",
-    "durationInFrames": 123
+    "durationInFrames": 271
   },
   {
     "id": 4,
@@ -142,7 +142,7 @@ export const scriptData: ScriptLine[] = [
     },
     "displayText": "まず全体の構成を説明するのだ！",
     "voiceFile": "04_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 111
   },
   {
     "id": 5,
@@ -153,7 +153,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "emotion": "thinking",
     "voiceFile": "05_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 148
   },
   {
     "id": 6,
@@ -164,7 +164,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 20,
     "emotion": "happy",
     "voiceFile": "06_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 338
   },
   {
     "id": 7,
@@ -181,7 +181,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "slideUp"
     },
     "voiceFile": "07_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 208
   },
   {
     "id": 8,
@@ -192,7 +192,7 @@ export const scriptData: ScriptLine[] = [
     "emotion": "thinking",
     "displayText": "何を準備すればいいの？",
     "voiceFile": "08_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 66
   },
   {
     "id": 9,
@@ -202,7 +202,7 @@ export const scriptData: ScriptLine[] = [
     "scene": 3,
     "pauseAfter": 15,
     "voiceFile": "09_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 281
   },
   {
     "id": 10,
@@ -219,7 +219,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "10_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 156
   },
   {
     "id": 11,
@@ -234,7 +234,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "11_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 170
   },
   {
     "id": 12,
@@ -249,7 +249,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "12_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 255
   },
   {
     "id": 13,
@@ -265,7 +265,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "13_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 307
   },
   {
     "id": 14,
@@ -276,7 +276,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "emotion": "thinking",
     "voiceFile": "14_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 164
   },
   {
     "id": 15,
@@ -294,7 +294,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "15_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 326
   },
   {
     "id": 16,
@@ -309,7 +309,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "16_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 169
   },
   {
     "id": 17,
@@ -326,7 +326,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "slideUp"
     },
     "voiceFile": "17_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 108
   },
   {
     "id": 18,
@@ -340,7 +340,7 @@ export const scriptData: ScriptLine[] = [
       "src": "tailscaleアイコン.PNG"
     },
     "voiceFile": "18_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 180
   },
   {
     "id": 19,
@@ -350,7 +350,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "displayText": "ステップ1！設定からモバイル通信を\nONにするのだ！普通、スマホを使う人は\n当然ONになっているから、\nここは特に意識しなくてもいいはずなのだ。",
     "voiceFile": "19_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 443
   },
   {
     "id": 20,
@@ -364,7 +364,7 @@ export const scriptData: ScriptLine[] = [
       "src": "tailscale画面.PNG"
     },
     "voiceFile": "20_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 281
   },
   {
     "id": 21,
@@ -379,7 +379,7 @@ export const scriptData: ScriptLine[] = [
       "src": "VPN.jpeg"
     },
     "voiceFile": "21_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 128
   },
   {
     "id": 22,
@@ -393,7 +393,7 @@ export const scriptData: ScriptLine[] = [
     },
     "displayText": "ステップ3！設定のインターネット共有からほかの人の接続を許可をオンにするのだ！これでiPadにテザリングできるのだ！",
     "voiceFile": "22_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 352
   },
   {
     "id": 23,
@@ -407,7 +407,7 @@ export const scriptData: ScriptLine[] = [
       "src": "テザリング2.PNG"
     },
     "voiceFile": "23_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 37
   },
   {
     "id": 24,
@@ -425,7 +425,7 @@ export const scriptData: ScriptLine[] = [
       "src": "ipad tailscale.jpg"
     },
     "voiceFile": "24_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 220
   },
   {
     "id": 25,
@@ -439,7 +439,7 @@ export const scriptData: ScriptLine[] = [
       "src": "wifi1.PNG"
     },
     "voiceFile": "25_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 216
   },
   {
     "id": 26,
@@ -453,7 +453,7 @@ export const scriptData: ScriptLine[] = [
       "src": "wifi2.PNG"
     },
     "voiceFile": "26_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 331
   },
   {
     "id": 27,
@@ -467,7 +467,7 @@ export const scriptData: ScriptLine[] = [
       "src": "Rustdesk.jpg"
     },
     "voiceFile": "27_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 455
   },
   {
     "id": 28,
@@ -478,7 +478,7 @@ export const scriptData: ScriptLine[] = [
     "emotion": "happy",
     "displayText": "固定パスワードを入力すれば接続完了ね！",
     "voiceFile": "28_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 118
   },
   {
     "id": 29,
@@ -489,7 +489,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "emotion": "happy",
     "voiceFile": "29_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 365
   },
   {
     "id": 30,
@@ -500,7 +500,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 20,
     "emotion": "happy",
     "voiceFile": "30_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 129
   },
   {
     "id": 31,
@@ -517,7 +517,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "slideUp"
     },
     "voiceFile": "31_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 353
   },
   {
     "id": 32,
@@ -532,7 +532,7 @@ export const scriptData: ScriptLine[] = [
       "src": "Dispatch.png"
     },
     "voiceFile": "32_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 105
   },
   {
     "id": 33,
@@ -551,7 +551,7 @@ export const scriptData: ScriptLine[] = [
       "src": "Dispatch.png"
     },
     "voiceFile": "33_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 345
   },
   {
     "id": 34,
@@ -568,7 +568,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "34_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 348
   },
   {
     "id": 35,
@@ -579,7 +579,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "emotion": "thinking",
     "voiceFile": "35_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 101
   },
   {
     "id": 36,
@@ -597,7 +597,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "36_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 284
   },
   {
     "id": 37,
@@ -608,7 +608,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "emotion": "thinking",
     "voiceFile": "37_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 93
   },
   {
     "id": 38,
@@ -626,7 +626,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "38_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 315
   },
   {
     "id": 39,
@@ -644,7 +644,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "fadeIn"
     },
     "voiceFile": "39_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 212
   },
   {
     "id": 40,
@@ -788,7 +788,7 @@ export const scriptData: ScriptLine[] = [
       ]
     },
     "voiceFile": "40_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 103
   },
   {
     "id": 41,
@@ -806,7 +806,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "zoomIn"
     },
     "voiceFile": "41_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 411
   },
   {
     "id": 42,
@@ -817,7 +817,7 @@ export const scriptData: ScriptLine[] = [
     "emotion": "surprised",
     "displayText": "（物理）キーボードなしでコーディングやファイル操作がリモートでできちゃうのね！",
     "voiceFile": "42_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 142
   },
   {
     "id": 43,
@@ -835,7 +835,7 @@ export const scriptData: ScriptLine[] = [
       "animation": "zoomIn"
     },
     "voiceFile": "43_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 195
   },
   {
     "id": 44,
@@ -846,7 +846,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 10,
     "emotion": "happy",
     "voiceFile": "44_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 175
   },
   {
     "id": 45,
@@ -856,7 +856,7 @@ export const scriptData: ScriptLine[] = [
     "pauseAfter": 15,
     "displayText": "簡単な説明だけどこれで説明はおわりなのだ。\n家で眠っているiPadがあれば試して欲しいのだ。\nそれじゃあバイバイなのだ。",
     "voiceFile": "45_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 350
   },
   {
     "id": 46,
@@ -867,7 +867,7 @@ export const scriptData: ScriptLine[] = [
     "emotion": "happy",
     "displayText": "バイバイ！",
     "voiceFile": "46_metan.wav",
-    "durationInFrames": 60
+    "durationInFrames": 25
   },
   {
     "id": 47,
@@ -878,7 +878,7 @@ export const scriptData: ScriptLine[] = [
     "emotion": "happy",
     "displayText": "バイバイなのだ！",
     "voiceFile": "47_zundamon.wav",
-    "durationInFrames": 60
+    "durationInFrames": 46
   }
 ];
 
